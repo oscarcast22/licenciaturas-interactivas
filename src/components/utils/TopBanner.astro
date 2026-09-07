@@ -1,6 +1,4 @@
 ---
-import Image from 'astro/components/Image.astro';
-
 interface Props {
     portada: string;
     portada_alt: string;
@@ -9,13 +7,11 @@ interface Props {
 const { portada, portada_alt } = Astro.props;
 ---
 <div class="banner-container" id="banner">
-    <Image
+    <img
         src={portada}
         alt={portada_alt}
-        width="100%"
-        height="55vh"
         loading="eager"
-    >
+    />
 </div>
 
 <style>

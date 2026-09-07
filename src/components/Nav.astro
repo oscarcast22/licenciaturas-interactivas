@@ -21,15 +21,15 @@ const coleccionDoctoradosOrdenada = ordenarPorTitulo(coleccionDoctorados);
 
 
 const licenciaturasLinks = coleccionLicenciaturasOrdenada.map((licenciatura) => (
-    { label: licenciatura.data.titulo, href: `/licenciaturas/${licenciatura.slug}` }
+    { label: licenciatura.data.titulo, href: `/licenciaturas/${licenciatura.id}` }
 ));
 
 const maestriasLinks = coleccionMaestriasOrdenada.map((maestria) => (
-    { label: maestria.data.titulo, href: `/maestrias/${maestria.slug}` }
+    { label: maestria.data.titulo, href: `/maestrias/${maestria.id}` }
 ));
 
 const doctoradosLinks = coleccionDoctoradosOrdenada.map((doctorado) => (
-    { label: doctorado.data.titulo, href: `/doctorados/${doctorado.slug}` }
+    { label: doctorado.data.titulo, href: `/doctorados/${doctorado.id}` }
 ));
 
 

@@ -3,12 +3,11 @@ interface Props {
     title: string;
     imageUrl: string;
     textAlign: string;
-    animation: string;
     id: string;
-    items: Array<{ id: string, slug: string, collection: string, data: { titulo?: string, color?: string, [key: string]: any } }>;
+    items: Array<{ id: string, collection: string, data: { titulo?: string, color?: string, [key: string]: any } }>;
 }
 
-const { title, imageUrl, textAlign, animation, id, items } = Astro.props;
+const { title, imageUrl, textAlign, id, items } = Astro.props;
 
 const sortedItems = items.sort((a, b) => {
   let tituloA = a.data.titulo || '';
@@ -18,10 +17,6 @@ const sortedItems = items.sort((a, b) => {
 ---
 <div
     class="collection-card"
-    data-aos={animation}
-    data-aos-duration="300"
-    data-aos-offset="200"
-    data-aos-once="true"
     id={id}
 >
     <div class="summary">
@@ -41,7 +36,7 @@ const sortedItems = items.sort((a, b) => {
                 sortedItems.map((item) => (
                     <li transition:name={item.data.titulo}>
                         <a 
-                            href={`/${item.collection}/${item.slug}`}
+                            href={`/${item.collection}/${item.id}`}
                         >
                             {item.data.titulo}
                         </a>

@@ -1,4 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const commonSchema = z.object({
 	titulo: z.string(),
@@ -14,15 +16,15 @@ const commonSchema = z.object({
 
 export const collections = {
 	licenciaturas: defineCollection({
-		type: 'content',
+		loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/licenciaturas' }),
 		schema: commonSchema,
 	}),
 	maestrias: defineCollection({
-		type: 'content',
+		loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/maestrias' }),
 		schema: commonSchema,
 	}),
 	doctorados: defineCollection({
-		type: 'content',
+		loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/doctorados' }),
 		schema: commonSchema,
 	}),
 };
