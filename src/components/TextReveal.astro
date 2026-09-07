@@ -65,22 +65,19 @@ const words = text.split(" ");
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  
+
   gsap.registerPlugin(ScrollTrigger);
 
-  if (typeof window !== 'undefined') {
-    document.addEventListener('astro:page-load', () => {
-      gsap.to('.word', {
-        opacity: 1,
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: '.text-reveal',
-          start: 'top center',
-          end: 'bottom center',
-          scrub: 1,
-          markers: false
-        }
-      });
+  document.addEventListener('astro:page-load', () => {
+    gsap.to('.word', {
+      opacity: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: '.text-reveal',
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 1,
+      },
     });
-  }
+  });
 </script>

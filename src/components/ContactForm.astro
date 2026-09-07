@@ -71,7 +71,10 @@ import { nombresLicenciaturas, nombresMaestrias, nombresDoctorados } from '../he
     </div>
 </div>
 
-<script is:inline data-astro-rerun>
+<script>
+    import $ from 'jquery';
+    import 'select2';
+
     function initializeSelect2() {
         $('.oferta-educativa').select2({
             placeholder: "Selecciona una opción",

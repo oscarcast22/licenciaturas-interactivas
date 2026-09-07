@@ -4,9 +4,6 @@ import CollapseButton from './utils/CollapseButton.astro';
 
 <div 
     class="accordion"
-    data-aos="zoom-in-up"
-    data-aos-duration="450"
-    data-aos-once="true"
 >
     <div class="accordion-item" id="mision">
         <label class="title" for="collapse-mision">
@@ -53,6 +50,7 @@ import CollapseButton from './utils/CollapseButton.astro';
             <p>
                 De esta manera, aunque la importancia de la dimensión cognitiva de las materias académicas es relevante, no es limitada, ya que si bien se enfatiza fundamentalmente el desarrollo de la personalidad integral del estudiante considerando el “aprender a aprender”, las estrategias de aprendizaje y las habilidades metacognitivas como elementos centrales; se trabaja también, para desarrollar en nuestra institución un ambiente de aprendizaje que facilite el acceso al conocimiento. Desde esta perspectiva tienen también aplicación institucional las teorías del desarrollo humano, que se ocupan de la persona desde el punto de vista moral, emocional, y del auto concepto.
             </p>
+        </div>
     </div>
     <div class="accordion-item" id="filosofia">
         <label class="title" for="collapse-filosofia">
@@ -65,7 +63,7 @@ import CollapseButton from './utils/CollapseButton.astro';
                 color='var(--black)'
             />
         </label>
-        <input type="checkbox" id="collapse-objetivo" hidden>
+        <input type="checkbox" id="collapse-filosofia" hidden>
         <div class="accordion-content">
             <p>
                 En la UAD se busca participar en el desarrollo regional y del país a partir de impulsar las actividades de docencia, investigación científica, humanística y tecnológica y la extensión, preservación y difusión de la cultura.
@@ -92,7 +90,7 @@ import CollapseButton from './utils/CollapseButton.astro';
                 color='var(--black)'
             />
         </label>
-        <input type="checkbox" id="collapse-objetivo" hidden>
+        <input type="checkbox" id="collapse-modelo" hidden>
         <div class="accordion-content">
             <p>
                 El modelo educativo se ofrece como una opción que busca satisfacer la demanda educativa de un importante sector de la sociedad, integrado por personas a quienes se les dificulta llevar un plan escolarizado presencial, mediante un plan de estudios abierto y a distancia.
@@ -199,4 +197,3 @@ import CollapseButton from './utils/CollapseButton.astro';
         });
     });
 </script>
-

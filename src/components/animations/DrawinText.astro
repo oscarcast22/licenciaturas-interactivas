@@ -67,23 +67,22 @@
 </style>
 
 <script>
-    import anime from 'animejs/lib/anime.es.js';
+    import { animate, createDrawable } from 'animejs';
 
     document.addEventListener('astro:page-load', function() {
         function startAnimation() {
             const svg = document.querySelector('.svg-container');
             if (svg && isHalfInViewport(svg)) {
-                const paths = document.querySelectorAll('#demo-svg path');
+                const paths = document.querySelectorAll<SVGPathElement>('#demo-svg path');
                 paths.forEach(path => {
                     path.style.display = 'block';
                 });
 
-                anime({
-                    targets: '#demo-svg path',
-                    strokeDashoffset: [anime.setDashoffset, 0],
-                    easing: 'easeInOutSine',
+                animate(createDrawable('#demo-svg path'), {
+                    draw: ['0 0', '0 1'],
+                    ease: 'inOutSine',
                     duration: 2500,
-                    direction: 'alternate',
+                    alternate: true,
                     loop: false
                 });
                 window.removeEventListener('scroll', startAnimation);
