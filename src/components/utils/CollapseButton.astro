@@ -1,0 +1,60 @@
+---
+interface Props {
+    inputName: string;
+    width: string;
+    thickness: string;
+    color: string;
+    top?: string;
+}
+
+const { inputName, width, thickness, color, top = "45%" } = Astro.props
+---
+
+<div class="container" >
+    <input class="input" type="checkbox" id={inputName}>
+    <div class="toggle-button" style={`width: ${width}; height: ${width};`}>
+        <div style={`height: ${thickness}; background: ${color}`}></div>
+        <div style={`height: ${thickness}; background: ${color}; top: ${top}`}></div>
+    </div>
+</div>
+
+<style>
+    .input {
+        display: none;
+    }
+
+    .toggle-button {
+        display: block;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .toggle-button div {
+        position: absolute;
+        width: 100%;
+        border-radius: 2px;
+        transition: .5s;
+    }
+
+    .toggle-button div:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .toggle-button div:nth-child(2) {
+        transform: rotate(90deg);
+    }
+
+    .input:checked + .toggle-button div:nth-child(1) {
+        transform: scale(0);
+        transform: rotate(180deg);
+    } 
+
+    .input:checked + .toggle-button div:nth-child(2) {
+        transform: rotate(180deg);
+    }
+
+    .container {
+        align-items: center;
+    }
+</style>

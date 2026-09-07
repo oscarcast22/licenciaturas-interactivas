@@ -1,0 +1,96 @@
+---
+interface Props {
+    color: string;
+}
+
+const { color }= Astro.props
+---
+
+<div 
+    class="container-reqs"
+    data-aos="zoom-in-up"
+    data-aos-duration="450"
+    data-aos-once="true"
+>
+    <button class="reqs-btn" style={`background-color: ${color}`}>Requisitos</button>
+    <div class="reqs">
+        <p>Para integrar tu expediente como alumno será necesario que nos envíes la siguiente documentación, tanto en formato digital como en físico:</p>
+        <ul>
+            <li>Acta de nacimiento nuevo formato (original y tres copias).</li>
+            <li>Certificado de bachillerato original y si se requiere, legalizado y autenticado</li>
+            <li>CURP</li>
+        </ul>
+        <p><strong>Para los extranjeros:</strong></p>
+        <ul>
+            <li>Certificado de nacimiento</li>
+            <li>Certificado de bachillerato con notas (para el proceso de revalidación)</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .container-reqs {
+        max-width: 285px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .reqs-btn {
+        width: 100%;
+        padding: 10px;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .reqs-btn:hover {
+        filter: brightness(0.9);
+    }
+
+    .reqs {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.4s ease-out, padding 0.4s ease-out;
+        text-align: center;
+    }
+
+
+    .reqs p, .reqs ul {
+        margin: 10px 0;
+        font-size: 1rem;
+    }
+
+    .reqs ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .reqs ul li {
+        margin-bottom: 5px;
+    }
+
+    .reqs ul li::before {
+        content: "- ";
+    }
+</style>
+
+<script>
+    document.addEventListener('astro:page-load', function() {
+        const toggleBtn = document.querySelector('.reqs-btn') as HTMLButtonElement;
+        const content = document.querySelector('.reqs') as HTMLElement;
+        let isOpen = false;
+
+        toggleBtn.addEventListener('click', function() {
+            if (isOpen) {
+                content.style.height = '0';
+                content.style.padding = '0';
+            } else {
+                content.style.height = `${content.scrollHeight}px`;
+                content.style.padding = "10px 0";
+            }
+            isOpen = !isOpen;
+        });
+    });
+</script>

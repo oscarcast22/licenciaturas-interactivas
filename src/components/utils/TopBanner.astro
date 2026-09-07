@@ -1,0 +1,43 @@
+---
+import Image from 'astro/components/Image.astro';
+
+interface Props {
+    portada: string;
+    portada_alt: string;
+}
+
+const { portada, portada_alt } = Astro.props;
+---
+<div class="banner-container" id="banner">
+    <Image
+        src={portada}
+        alt={portada_alt}
+        width="100%"
+        height="55vh"
+        loading="eager"
+    >
+</div>
+
+<style>
+    .banner-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1;
+    }
+
+    .banner-container img {
+        object-fit: cover;
+        width: 100%;
+        height: 55vh;
+        object-position: center;
+        transition: height .3s ease;
+    }
+
+    @media (max-width: 850px) {
+        .banner-container img {
+            height: 40vh;
+        }
+    }
+</style>

@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro"
+import Nav from "../components/Nav.astro"
+import AccordionFAQs from "../components/AccordionFAQs.astro";
+import BottomBanner from "../components/BottomBanner.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<Layout title="Preguntas frecuentes">
+    <Nav />
+    <div class="container" id="hero-faqs">
+        <img src="/images/portada-preguntas-frecuentes.jpg" alt="">
+        <h1
+            data-aos="zoom-in-up"
+            data-aos-duration="650"
+        >
+            Preguntas <strong>Frecuentes</strong>
+        </h1>
+    </div>
+    <main>
+        <section>
+            <AccordionFAQs />
+            <BottomBanner />
+        </section>
+        <Footer />
+    </main>
+</Layout>
+
+<style>
+    .container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        z-index: 0;
+        height: 70vh;
+    }
+
+    .container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 10%;
+    }
+
+    .container h1 {
+        position: absolute;
+        color: var(--gray-950);
+        font-size: var(--text-5xl);
+        font-weight: 400;
+        margin: 0 1rem;
+        transition: all .3s ease
+    }
+
+    main {
+        background: var(--gray-900);
+		position: relative;
+		z-index: 1;
+    }
+
+    section {
+        margin: auto;
+        padding: 15px 20px 120px 20px;
+		max-width: 1080px;
+    }
+
+    @media (max-width: 485px) {
+        .container h1 {
+            font-size: var(--text-4xl);
+        }
+    }
+
+    @media (max-width: 355px) {
+        .container h1 {
+            font-size: var(--text-3xl);
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('astro:page-load', function() {
+        const heroP = document.getElementById('hero-faqs');
+        
+        if (heroP) {
+            window.addEventListener('scroll', function() {
+                const scrollPosition = window.scrollY;
+                const heroBottom = heroP.offsetTop;
+                if (scrollPosition >= heroBottom) {
+                    const distanceFromBottom = scrollPosition - heroBottom;
+                    const parallaxValue = distanceFromBottom * .7;
+                    heroP.style.transform = `translateY(${parallaxValue}px)`;
+                }
+            });
+        }
+    });
+</script>

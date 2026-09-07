@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import Hero from "../components/Hero.astro";
+import HeroContent from "../components/HeroContent.astro";
+import Nav from "../components/Nav.astro";
+import Layout from "../layouts/Layout.astro";
+import TextIndex from "../components/TextIndex.astro"
+import Footer from "../components/Footer.astro"
+import BottomHero from "../components/BottomHero.astro";
+import CollectionCard from "../components/CollectionCard.astro";
+import TextReveal from '../components/TextReveal.astro';
+
+const licenciaturas = (await getCollection('licenciaturas'));
+const maestrias = (await getCollection('maestrias'))
+const doctorados = (await getCollection('doctorados'))
+---
+
+<Layout title="Licenciaturas Interactivas">
+	<main>
+		<Nav />
+		<Hero
+			title="Licenciaturas Interactivas"
+			subtitle="Las licenciaturas Interactivas cuentan con un Plan de Estudios compuesto de 9 a 10 cuatrimestres integrados en 9 bloques de 6 materias cada uno. Por lo que puedes concluir tu carrera en 3 años."
+			img1="/images/hero/portada-lic-interactivas.jpg"
+		/>
+		<section class="main-section">
+			<div style="padding: 0px 20px 0px 20px;">
+				<HeroContent />
+			</div>
+			<div style="overflow: hidden;">
+				<div class="max-w">
+					<CollectionCard 
+						title="Licenciaturas"
+    					imageUrl="/images/portada-licenciaturas-li.jpg"
+    					textAlign="right"
+						animation='fade-right'
+						id="licenciaturas"
+    					items={licenciaturas}
+					/>
+					<CollectionCard 
+						title="Maestrías"
+						imageUrl="/images/portada-maestrias-li.jpg"
+						textAlign="left"
+						animation='fade-left'
+						id='maestrias'
+						items={maestrias}
+					/>
+					<CollectionCard 
+						title="Doctorados"
+						imageUrl="/images/portada-doctorado-li.jpg"
+    					textAlign="right"
+						animation='fade-right'
+						id='doctorados'
+						items={doctorados}
+					/>
+				</div>
+				<!-- <TextIndex /> -->
+			</div>
+			<TextReveal text="Educación a tu ritmo de vida" />
+
+			<section class="bottom-section">
+				<BottomHero 
+					title="¡Únete a la Gran Familia Lobos!"
+					img1="/images/piedepagina.jpg"
+				/>
+				<Footer />
+			</section>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.main-section {
+		background: rgb(242,242,242);
+		background: -moz-linear-gradient(180deg, rgba(242,242,242,0) 0%, rgba(242,242,242,1) 20%);
+		background: -webkit-linear-gradient(180deg, rgba(242,242,242,0) 0%, rgba(242,242,242,1) 20%);
+		background: linear-gradient(180deg, rgba(242,242,242,0) 0%, rgba(242,242,242,1) 20%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f2f2f2",endColorstr="#f2f2f2",GradientType=1);
+		position: relative;
+		z-index: 1;
+		margin-top: 85vh;
+	}
+
+	.bottom-section {
+		position: relative;
+	}
+
+	.max-w {
+		padding: 0px 20px 0px 20px;
+		max-width: 1280px;
+		margin: auto;
+	}
+</style>

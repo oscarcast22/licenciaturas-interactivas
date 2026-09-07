@@ -1,0 +1,150 @@
+---
+import LogoLiBlanco from "./utils/LogoLiBlanco.astro";
+
+interface Props {
+    img1: string;
+}
+
+const { img1 } = Astro.props;
+---
+<div class="container" id="hero-nosotros">
+    <div class="content">
+        <div 
+            class="content-text" 
+            data-aos="zoom-in-up"
+            data-aos-duration="650"
+            data-aos-offset="200"
+        >
+            <LogoLiBlanco
+                color="var(--gray-900)"
+                width="360px"
+                maxWidth="75%"
+            />
+            <div class="text">
+                <p>
+                    Fomento Educativo y Cultura Francisco de Ibarra A.C. es el organismo que da vida a nuestra casa de estudios de 11 de Febrero de 1992, fecha desde la cual trabajamos incansablemente, siempre apegados a los conceptos filosóficos que han guiado nuestro accionar, los cuales nos impulsan al cumplimiento de los objetivos que nos hemos propuesto, colaborar día con día a mejorar las condiciones generales de nuestra región y contribuir a desarrollo de nuestro país.
+                </p>
+                <p>
+                    La Universidad Autónoma de Durango pretende obtener un lugar en nuestra sociedad mediante el estímulo y fomento a la educación, a la cultura y a la investigación teniendo como elemento indispensable una visión hacia la excelencia que permita a los hombres de nuestra comunidad desarrollarse y vincularse productivamente con su país y con el exterior, crear en el seno de la comunidad universitaria hombres libres capaces de cambiar su entorno y manifestarse como personas útiles a su sociedad.
+                </p>
+            </div>
+        </div>
+        <div class="image">
+            <img src={img1} alt="Imagen 1">
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        position: relative;
+        z-index: 0;
+    }
+
+    .content {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        overflow: hidden;
+        height: 1000px;
+        transition: height .3s ease;
+    }
+
+
+    .image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .image img {
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .image::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+    }
+
+    .content-text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: var(--gray-900);
+        z-index: 2;
+    }
+
+    .text {
+        width: 80%;
+        max-width: 1280px;
+    }
+
+</style>
+
+<script>
+    document.addEventListener('astro:page-load', function() {
+        let windowHeight = window.innerHeight;
+        const heroN = document.getElementById('hero-nosotros');
+
+        if (heroN) {
+            function handleParallax() {
+                const scrollPosition = window.scrollY;
+                if (windowHeight < 1000) {
+                    handleParallaxSmallScreen(heroN, windowHeight, scrollPosition);
+                } else {
+                    handleParallaxLargeScreen(heroN, scrollPosition);
+                }
+            }
+
+            window.addEventListener('scroll', handleParallax);
+            window.addEventListener('resize', function() {
+                windowHeight = window.innerHeight;
+                handleParallax();
+            });
+
+            handleParallax();  
+        }
+    });
+
+    function handleParallaxSmallScreen(heroN, windowHeight, scrollPosition) {
+        const heroBottom = heroN.offsetTop + heroN.offsetHeight;
+
+        if (scrollPosition + windowHeight >= heroBottom) {
+            const distanceFromBottom = scrollPosition + windowHeight - heroBottom;
+            const parallaxValue = distanceFromBottom * 0.7;
+            heroN.style.transform = `translateY(${parallaxValue}px)`;
+        } else {
+            heroN.style.transform = 'translateY(0)';
+        }
+    }
+
+    function handleParallaxLargeScreen(heroN, scrollPosition) {
+        const heroTop = heroN.offsetTop;
+        
+        if (scrollPosition >= heroTop) {
+            const distanceFromTop = scrollPosition - heroTop;
+            const parallaxValue = distanceFromTop * 0.7;
+            heroN.style.transform = `translateY(${parallaxValue}px)`;
+        } else {
+            heroN.style.transform = 'translateY(0)';
+        }
+    }
+</script>
+
+
+
+
+
+
+
+

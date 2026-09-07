@@ -1,0 +1,99 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import 'select2/dist/css/select2.min.css';
+import '@fontsource-variable/montserrat';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<script src="/node_modules/jquery/dist/jquery.min.js" is:inline></script>
+		<script src="/node_modules/select2/dist/js/select2.min.js" is:inline></script>
+    	<ViewTransitions />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<script>
+    import AOS from 'aos/dist/aos.js';
+
+    AOS.init();
+</script>
+
+<style is:global>
+	/* Variables Globales */
+	:root {
+	/* Colores */
+	--black: #020202;
+	--gray-100: #1A1A1A;
+	--gray-300: #868686;
+  	--gray-500: #bbbbbb;
+	--gray-900: #f2f2f2;
+  	--gray-950: #f9f9f9;
+  	--red-100: #940124;
+ 	--red-200: #c10230;
+
+	--link-color: #29a9e0;
+
+	--link-hover-color: wite;
+
+	/* Tamaño de fuentes*/
+	--text-xs: 0.75rem;
+	--text-sm: 0.9rem;
+	--text-base: 1rem;
+	--text-md: 1.125rem;
+	--text-lg: 1.25rem;
+	--text-xl: 1.625rem;
+	--text-2xl: 2.125rem;
+	--text-3xl: 2.625rem;
+	--text-4xl: 3.5rem;
+	--text-5xl: 4.5rem;
+	}
+
+	button {
+		transition: background-color .3s ease;
+	}
+
+	a {
+		transition: background-color .3s ease;
+	}
+</style>
+
+<script>
+	document.addEventListener('astro:page-load', function() {
+	    const OFFSET = 95;
+
+	    const hash = window.location.hash;
+	    if (hash) {
+	        const targetElement = document.querySelector(hash);
+	        if (targetElement) {
+	            setTimeout(() => {
+	                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - OFFSET;
+	                window.scrollTo({
+	                    top: targetPosition,
+	                    behavior: 'smooth'
+	                });
+	            }, 150);
+	        }
+	    }
+	});
+</script>
+
+
+

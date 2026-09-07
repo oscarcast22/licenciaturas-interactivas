@@ -1,0 +1,25 @@
+{
+  "name": "uad-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource-variable/montserrat": "^5.0.19",
+    "animejs": "^3.2.2",
+    "aos": "^2.3.4",
+    "astro": "^4.7.1",
+    "gsap": "^3.12.7",
+    "jquery": "^3.7.1",
+    "normalize.css": "^8.0.1",
+    "select2": "^4.1.0-rc.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.30"
+  }
+}

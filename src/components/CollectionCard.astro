@@ -1,0 +1,177 @@
+---
+interface Props {
+    title: string;
+    imageUrl: string;
+    textAlign: string;
+    animation: string;
+    id: string;
+    items: Array<{ id: string, slug: string, collection: string, data: { titulo?: string, color?: string, [key: string]: any } }>;
+}
+
+const { title, imageUrl, textAlign, animation, id, items } = Astro.props;
+
+const sortedItems = items.sort((a, b) => {
+  let tituloA = a.data.titulo || '';
+  let tituloB = b.data.titulo || '';
+  return tituloA.localeCompare(tituloB);
+});
+---
+<div
+    class="collection-card"
+    data-aos={animation}
+    data-aos-duration="300"
+    data-aos-offset="200"
+    data-aos-once="true"
+    id={id}
+>
+    <div class="summary">
+        <input type="checkbox" id={`collapse-${title}`} class="collapse-checkbox">
+        <label for={`collapse-${title}`}>
+            <div class="card">
+                <img src={imageUrl} alt={`imagen de ${title}`}>
+                <div class="overlay" style={`text-align: ${textAlign}`}>
+                    <p>{title}</p>
+                </div>
+            </div>
+        </label>
+    </div>
+    <div class="details">
+        <ul>
+            {
+                sortedItems.map((item) => (
+                    <li transition:name={item.data.titulo}>
+                        <a 
+                            href={`/${item.collection}/${item.slug}`}
+                        >
+                            {item.data.titulo}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</div>
+
+<style>
+    .collection-card {
+        scroll-margin-top: 110px;
+        margin: 0;
+    }
+
+    .summary {
+        max-width: 1080px;
+        margin: 0 auto .7em auto;
+        cursor: pointer;
+    }
+
+    .card {
+        position: relative;
+        box-shadow: 0px 4px 5px 0px rgb(0 0 0 / 24%);
+        overflow: hidden;
+    }
+
+    input {
+        display: none;
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.4s ease
+        
+    }
+
+    .card:hover img {
+        transform: scale(1.06);
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #b90831;
+    }
+
+    .overlay p {
+        color: var(--gray-900);
+        font-size: 4.8vw;
+        margin: 1.2vw 3.2vw;
+        font-weight: 600;
+    }
+
+    .details {
+        height: 0;
+        margin: auto;
+        overflow: hidden;
+        transition: height 1.5s ease 0s;
+        max-width: 1080px;
+        background-color: var(--gray-900);
+        transition: all .4s;
+    }
+
+    .details.open {
+        margin: 0 auto 1rem;
+    }
+
+    .details ul {
+        margin: 0;
+        padding: 0 .5rem 0 1.5rem;
+    }
+
+    .details li {
+        margin: 0 0 6px 0;
+        list-style: initial;
+    }
+
+    .details a {
+        text-decoration: none;
+        color: var(--black);
+        font-weight: 500;
+        transition: color .3s ease;
+        font-size: 1rem;
+    }
+
+    .details a:hover {
+        color: var(--red-200);
+    }
+
+
+    @media (min-width: 50em) {
+        .overlay p {
+            font-size: 2.3em;
+        }
+        .details a {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+    const cards = document.querySelectorAll('.collection-card');
+
+    cards.forEach((card) => {
+        const checkbox = card.querySelector('.collapse-checkbox') as HTMLInputElement;
+        const collapsibleContent = card.querySelector('.details') as HTMLElement;
+
+        if (checkbox && collapsibleContent) {
+            checkbox.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    collapsibleContent.classList.add('open');
+                    collapsibleContent.style.height = `${collapsibleContent.scrollHeight}px`;
+                } else {
+                    collapsibleContent.classList.remove('open');
+                    collapsibleContent.style.height = '0';
+                }
+            });
+            collapsibleContent.style.height = '0';
+        }
+    });
+    });
+</script>

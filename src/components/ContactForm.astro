@@ -1,0 +1,428 @@
+---
+import { nombresLicenciaturas, nombresMaestrias, nombresDoctorados } from '../helpers/carreras.js';
+---
+
+<form action="/agradecimiento" id="contactForm" data-astro-reload>
+    <h1>Contacto</h1>
+    <div class="form-input">
+        <label for="nombre">Nombre</label><br>
+        <input type="text" id="nombre" name="nombre" required>
+    </div>
+    <div class="form-input">
+        <label for="apellido-paterno">Apellido Paterno</label><br>
+        <input type="text" id="apellido-paterno" name="apellido-paterno" required>
+    </div>
+    <div class="form-input">
+        <label for="apellido-materno">Apellido Materno</label><br>
+        <input type="text" id="apellido-materno" name="apellido-materno" required>
+    </div>
+    <div class="form-input">
+        <label for="email">Correo Electrónico</label><br>
+        <input type="email" id="email" required>
+    </div>
+    <div class="form-input">
+        <label for="telefono">Teléfono</label><br>
+        <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" required>
+    </div>
+    <div class="form-input">
+        <label for="campus">Ciudad</label><br>
+        <input type="text" id="campus" name="campus" required>
+    </div>
+    <div class="form-input">
+        <label for="oferta-educativa">Oferta Educativa</label><br>
+        <select name="oferta-educativa" id="oferta-educativa" class="oferta-educativa" required>
+            <option></option>
+            <optgroup label="Licenciaturas">
+                {
+                    nombresLicenciaturas.map((licenciatura) => (
+                    <option value={licenciatura}>{licenciatura}</option>
+                    ))
+                }
+            </optgroup>
+            <optgroup label="Maestrías">
+                {
+                    nombresMaestrias.map((maestria) => (
+                    <option value={maestria}>{maestria}</option>
+                    ))
+                }
+            </optgroup>
+            <optgroup label="Doctorados">
+                {
+                    nombresDoctorados.map((doctorado) => (
+                    <option value={doctorado}>{doctorado}</option>
+                    ))
+                }
+            </optgroup>
+        </select>
+    </div>
+    <div class="checkbox-container">
+        <input type="checkbox" id="tyc" name="tyc" required/>
+        <label for="tyc">Acepto los <span id="openModal">Términos y condiciones</span></label>
+    </div>
+    <div class="submit-button">
+        <input type="submit" value="Registrarse"/>
+    </div>
+</form>
+<div id="tycModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Términos y Condiciones</h2>
+        <p>Aquí van los términos y condiciones...</p>
+    </div>
+</div>
+
+<script is:inline data-astro-rerun>
+    function initializeSelect2() {
+        $('.oferta-educativa').select2({
+            placeholder: "Selecciona una opción",
+            minimumResultsForSearch: Infinity,
+            width: '100%',
+        });
+    }
+
+    document.addEventListener('astro:page-load', function () {
+        $(document).ready(initializeSelect2);
+    });
+</script>
+
+<style>
+    form {
+        margin: 0 0 2.5rem 0;
+    }
+
+    .form-input {
+        margin: 12px 0 0;
+        position: relative;
+    }
+
+    form h1 {
+        text-transform: uppercase;
+        font-weight: 800;
+    }
+
+    form input {
+        width: -webkit-fill-available;
+        background: none;
+        border-width: 1px;
+        border-color: var(--gray-500);
+        border-style: groove;
+        outline: none;
+        margin: 6px 0 0;
+        padding: 6px;
+    }
+
+    .oferta-educativa {
+        width: 100%;
+        background-color: var(--gray-900);
+        border-width: 1px;
+        border-color: var(--gray-500);
+        outline: none;
+        margin: 6px 0 12px;
+        padding: 6px;
+    }
+
+    .checkbox-container {
+        width: fit-content;
+        margin: 20px auto;
+    }
+
+    .checkbox-container span {
+        color: var(--link-color);
+        cursor: pointer;
+    }
+
+
+    form input[type="checkbox"] {
+        width: fit-content;
+        margin-right: 10px;
+    }
+
+    form label.error::after {
+        content: '*';
+        color: var(--red-200);
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+    .submit-button {
+        width: fit-content;
+        margin: auto;
+    }
+
+    .submit-button input {
+        width: 200px;
+        background-color: var(--red-200);
+        border: none;
+        color: var(--gray-900);
+        padding: 10px 20px;
+        text-align: center;
+        display: inline-block;
+        font-size: var(--text-base);
+        font-weight: 550;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-button input:hover {
+        background-color: var(--red-100);
+    }
+
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1; 
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        overflow: auto; 
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.4); 
+        animation: fadeIn 0.5s;
+    }
+
+    .modal-content {
+        background-color: var(--gray-950);
+        margin: 15% auto; 
+        padding: 20px;
+        border: 1px solid var(--gray-500);
+        width: 80%; 
+        animation: slideIn 0.5s;
+        box-shadow: -3px 3px 20px 0px rgb(0 0 0 / 24%);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+
+    @keyframes slideIn {
+        from {transform: translateY(-50px);}
+        to {transform: translateY(0);}
+    }
+
+    @keyframes fadeOut {
+        from {opacity: 1;}
+        to {opacity: 0;}
+    }
+
+    @keyframes slideOut {
+        from {transform: translateY(0);}
+        to {transform: translateY(-50px);}
+    }
+
+    .fade-out {
+        animation: fadeOut 0.5s, slideOut 0.5s;
+        animation-fill-mode: forwards;
+    }
+</style>
+
+<style is:global>
+    .error-message {
+        position: absolute;
+        transition: all .3s;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        padding: 5px;
+        margin-top: 5px;
+        font-size: 0.8rem;
+        z-index: 4;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .error-message:before {
+        content: '';
+        position: absolute;
+        top: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 10px solid transparent;
+        border-bottom-color: #f8d7da;
+    }
+
+    .select2-container--default .select2-selection--single {
+        background-color: var(--gray-900);
+        border: 1px solid #aaa;
+        border-width: 1px;
+        border-color: var(--gray-500);
+        outline: none;
+        height: 35px;
+        align-content: center;
+        border-radius: 0;
+    }
+
+    .select2-container {
+        box-sizing: border-box;
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        margin: 6px 0 12px;
+    }
+
+    .select2-container--default .select2-results>.select2-results__options {
+        background: var(--gray-950);
+    }
+</style>
+
+<script>
+    document.addEventListener('astro:page-load', function () {
+        const form = document.getElementById('contactForm');
+
+        if (form) {
+            const inputs = form.querySelectorAll('input, select');
+            
+            inputs.forEach(function (input) {
+                input.addEventListener('input', validateInput);
+                input.addEventListener('blur', validateInputOnBlur);
+            });
+
+            function validateInput(event) {
+                const input = event.target;
+                clearError(input);
+            }
+
+            function validateInputOnBlur(event) {
+                const input = event.target;
+                let isValid = false;
+
+                if (input.id === 'nombre' && input.value.trim() === '') {
+                    isValid = false;
+                    showError(input);
+                }
+
+                if (input.id === 'apellido-paterno' && input.value.trim() === '') {
+                    isValid = false;
+                    showError(input);
+                }
+
+                if (input.id === 'apellido-materno' && input.value.trim() === '') {
+                    isValid = false;
+                    showError(input);
+                }
+
+                if (input.id === 'email') {
+                    if (input.value.trim() === '' && !validateEmail(input.value)) {
+                        isValid = false;
+                        showError(input);
+                    } else if (!validateEmail(input.value)) {
+                        isValid = false;
+                        showError(input, 'El correo electrónico no es válido');
+                    }
+                }
+
+                if (input.id === 'telefono') {
+                    if (input.value.trim() === '' && !validatePhone(input.value)) {
+                        isValid = false;
+                        showError(input);
+                    } else if (!validatePhone(input.value)) {
+                        isValid = false;
+                        showError(input, 'El telefono debe tener 10 digitos');
+                    }
+                }
+
+                if (input.id === 'campus' && input.value.trim() === '') {
+                    isValid = false;
+                    showError(input);
+                }
+
+                if (input.id === 'oferta-educativa' && input.value === '') {
+                    isValid = false;
+                    showError(input);
+                }
+
+                if (input.id === 'tyc' && !input.checked) {
+                    isValid = false;
+                    showError(input);
+                }
+
+                if (!isValid) {
+                    input.classList.add('invalid');
+                }
+
+                return isValid;
+            }
+
+            function showError(input, message?) {
+                const label = document.querySelector(`label[for=${input.id}]`);
+                if (label) {
+                    label.classList.add('error');
+                }
+                if (message) {
+                    const error = document.createElement('p');
+                    error.className = 'error-message';
+                    error.textContent = message;
+                    input.parentNode.insertBefore(error, input.nextSibling);
+                }
+            }
+
+            function clearError(input) {
+                const label = document.querySelector(`label[for=${input.id}]`);
+                const nextElement = input.nextElementSibling;
+                if (label) {
+                    label.classList.remove('error');
+                }
+                if (nextElement && nextElement.classList.contains('error-message')) {
+                    nextElement.remove();
+                }
+                input.classList.remove('invalid');
+            }
+
+            function validateEmail(email) {
+                const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+                return re.test(email);
+            }
+
+            function validatePhone(phone) {
+                const re = /^[0-9]{10}$/;
+                return re.test(phone);
+            }
+        }
+    });
+
+    document.addEventListener('astro:page-load', function() {
+        const modal = document.getElementById("tycModal");
+
+        if (modal) {
+            const link = document.getElementById("openModal") as HTMLElement;
+            const span = document.getElementsByClassName("close")[0] as HTMLElement;
+
+            link.onclick = function(event) {
+                event.preventDefault();
+                modal.style.display = "block";
+            }
+
+            span.onclick = function() {
+                modal.classList.add('fade-out');
+                setTimeout(function() {
+                    modal.style.display = "none";
+                    modal.classList.remove('fade-out');
+                }, 500);
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.classList.add('fade-out');
+                    setTimeout(function() {
+                        modal.style.display = "none";
+                        modal.classList.remove('fade-out');
+                    }, 500);
+                }
+            }
+        }
+    });
+</script>

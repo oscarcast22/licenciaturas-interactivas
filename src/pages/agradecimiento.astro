@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Gracias por contactarnos">
+    <section transition:animate="slide">
+        <div class="centered-content">
+            <h1>Gracias por contactarnos</h1>
+            <p>Nuestro equipo se pondra en contacto contigo a la brevedad</p>
+            <a href="/">Volver a inicio</a>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .centered-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+    
+    .centered-content div {
+        max-width: 600px;
+        padding: 20px;
+    }
+    </style>

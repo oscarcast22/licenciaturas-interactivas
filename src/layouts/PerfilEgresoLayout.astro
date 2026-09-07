@@ -1,0 +1,41 @@
+---
+interface Props {
+    color: string;
+}
+
+const { color } = Astro.props;
+---
+
+<section 
+    class="perfil-egreso"
+    data-aos="zoom-in-up"
+    data-aos-duration="450"
+    data-aos-once="true"
+>
+    <h1 style={`color: ${color}`}>
+        Perfil Egreso
+    </h1>
+    <slot />
+</section>
+
+<style is:global>
+    .perfil-egreso ul {
+        padding: 0;
+    }
+
+    .perfil-egreso li {
+        margin: .7em 0;
+    }
+
+    .perfil-egreso li:before{content: "- "}
+
+    .perfil-egreso h1 {
+		font-weight: 500;
+		margin: 1.2em 0 .5em 0;
+        font-size: 3em;
+	}
+
+    .perfil-egreso h3 {
+        font-weight: 550;
+    }
+</style>

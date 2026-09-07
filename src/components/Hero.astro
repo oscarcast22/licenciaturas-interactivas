@@ -1,0 +1,138 @@
+---
+interface Props {
+	title: string;
+    subtitle: string;
+    img1: string;
+}
+
+const { title, subtitle, img1 } = Astro.props;
+---
+<div class="hero-container" id="hero">
+    <div class="slider">
+        <div 
+            class="slide-text" 
+            data-aos="zoom-in-up"
+            data-aos-duration="650"
+            data-aos-offset="200"
+        >
+            <h1>{title}</h1>
+            <h2>{subtitle}</h2>
+            <a href="/#licenciaturas">Conoce nuestra oferta educativa</a>
+        </div>
+        <div class="slide-image">
+            <img src={img1} alt="Imagen 1">
+        </div>
+    </div>
+</div>
+
+<style>
+    .hero-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .slider {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        overflow: hidden;
+        height: 85vh;
+    }
+
+
+    .slide-image {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slide-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .slide-text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: var(--gray-900);
+        z-index: 2;
+        margin: 0 1rem 3rem;
+    }
+
+    .slide-text h1 {
+        font-size: 4rem;
+        margin: 0;
+        transition: all .3s ease;
+    }
+
+    .slide-text h2 {
+        font-size: 1.2rem;
+        text-wrap: wrap;
+        width: 70%;
+        margin: auto;
+        font-weight: 400;
+        transition: all .3s ease;
+    }
+
+
+    a {
+        background-color: var(--red-200);
+        color: var(--gray-900);
+        width: fit-content;
+        text-decoration: none;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 400;
+        z-index: 3;
+        margin-top: 1.5rem;
+    }
+
+    a:hover {
+        background-color: var(--red-100);
+    }
+
+    @media (max-width: 800px) {
+        .slide-text h1 {
+            font-size: 9vw;
+        }
+        .slide-text h2 {
+            font-size: 1rem;
+        }
+        .slide-text a {
+            font-size: var(--text-sm);
+        }
+    }
+
+    @media (min-width: 1220px) {
+        .slide-text h2 {
+            width: 50%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .slide-text h1 {
+            font-size: 2.8rem;
+        }
+    }
+
+    @media (max-width: 330px) {
+        .slide-text h1 {
+            font-size: 2.2rem;
+        }
+    }
+
+</style>
