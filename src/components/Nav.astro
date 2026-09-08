@@ -136,19 +136,20 @@ const menuLinks = [
         left: 0;
         width: 100%;
         z-index: 99;
-        padding: 15px 20px;
-        background: linear-gradient(180deg, rgba(22,22,23,0.9) 0%, rgba(22,22,23,0.5) 63%, rgba(22,22,23,0.042) 100%);
+        padding: 20px 24px;
+        background: transparent;
         transition: height 0.4s ease;
         overflow: hidden;
         z-index: 95;
-        font-size: var(--text-md);
+        font-size: .93rem;
         color: var(--gray-900);
-        -webkit-backdrop-filter: blur(0px);
-        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
         transition: width 0.4s ease, height 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.4s ease;
     }
 
     header.scrolled {
+		background: rgb(26 26 26 / 94%);
         -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
     }
@@ -161,8 +162,9 @@ const menuLinks = [
     .nav {
         display: flex;
         justify-content: space-between;
-        max-width: 1280px;
+        max-width: var(--page-width);
         margin: auto;
+		min-height: 43px;
     }
 
     nav {
@@ -173,7 +175,7 @@ const menuLinks = [
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: clamp(.9rem, 2vw, 1.8rem);
         margin: 0;
         padding: 0;
     }
@@ -182,6 +184,9 @@ const menuLinks = [
         display: flex;
         align-items: center;
     }
+
+    .menu-logo :global(svg) { display: block; }
+	.menu-logo :global(svg) { width: 196px; height: auto; }
 
     .menu-item {
         position: relative;
@@ -213,8 +218,9 @@ const menuLinks = [
     }
 
     .link {
-        color: var(--gray-600);
-        font-weight: 500;
+        color: var(--gray-900);
+        font-weight: 400;
+		font-size: 16px;
         text-decoration: none;
         transition: color 0.4s;
         text-wrap: nowrap;
@@ -276,8 +282,9 @@ const menuLinks = [
     }
 
     .submenu button {
-        color: var(--gray-600);
-        font-weight: 500;
+        color: var(--gray-900);
+        font-weight: 400;
+		font-size: 16px;
         cursor: pointer;
         background: none;
         border: none;
@@ -292,23 +299,28 @@ const menuLinks = [
 
     .oferta-content {
         position: absolute;
-        padding: 30px 30px 18px 0;
+        padding: 1.25rem;
         column-count: 2;
-        top: 25px;
+        top: 35px;
         left: 0;
         opacity: 0;
         transform: translateY(-10px);
         transition: opacity 0.4s ease, transform 0.4s ease;
         pointer-events: none;
+        background: var(--surface);
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
     }
 
     .oferta-content p {
         margin: 0 0 10px;
-        font-size: var(--text-sm);
+        font-size: .75rem;
+        color: var(--gray-300);
     }
 
     .link.oferta {
-        font-size: var(--text-base);
+        color: var(--black);
+        font-size: .9rem;
         text-wrap: wrap;
         transition: color 0.3s;
     }
@@ -359,6 +371,7 @@ const menuLinks = [
 
 
     @media (max-width: 1040px) {
+		header { background: rgb(26 26 26 / 94%); padding: 14px 20px; }
 
         nav {
             position: absolute;

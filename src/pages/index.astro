@@ -24,10 +24,10 @@ const doctorados = (await getCollection('doctorados'))
 			img1="/images/hero/portada-lic-interactivas.jpg"
 		/>
 		<section class="main-section">
-			<div style="padding: 0px 20px 0px 20px;">
+			<div class="intro-wrap">
 				<HeroContent />
 			</div>
-			<div style="overflow: hidden;">
+			<div class="collections-wrap">
 				<div class="max-w">
 					<CollectionCard 
 						title="Licenciaturas"
@@ -58,7 +58,7 @@ const doctorados = (await getCollection('doctorados'))
 			<section class="bottom-section">
 				<BottomHero 
 					title="¡Únete a la Gran Familia Lobos!"
-					img1="/images/piedepagina.jpg"
+					img1="/images/hero/portada-lic-interactivas.jpg"
 				/>
 				<Footer />
 			</section>
@@ -68,14 +68,12 @@ const doctorados = (await getCollection('doctorados'))
 
 <style>
 	.main-section {
-		background: rgb(242,242,242);
-		background: -moz-linear-gradient(180deg, rgba(242,242,242,0) 0%, rgba(242,242,242,1) 20%);
-		background: -webkit-linear-gradient(180deg, rgba(242,242,242,0) 0%, rgba(242,242,242,1) 20%);
-		background: linear-gradient(180deg, rgba(242,242,242,0) 0%, rgba(242,242,242,1) 20%);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f2f2f2",endColorstr="#f2f2f2",GradientType=1);
+		--home-card-overlap: 134px;
+		background: linear-gradient(180deg, rgb(242 242 242 / 0%) 0, var(--surface-muted) 15rem);
 		position: relative;
 		z-index: 1;
-		margin-top: 85vh;
+		margin-top: 1083px;
+		background: var(--surface);
 	}
 
 	.bottom-section {
@@ -83,8 +81,23 @@ const doctorados = (await getCollection('doctorados'))
 	}
 
 	.max-w {
-		padding: 0px 20px 0px 20px;
-		max-width: 1280px;
+		padding: 0 20px;
+		max-width: 1034px;
 		margin: auto;
+	}
+
+	.intro-wrap {
+		padding: 0 20px;
+		position: relative;
+		transform: translateY(calc(-1 * var(--home-card-overlap)));
+		margin-bottom: calc(-1 * var(--home-card-overlap));
+	}
+	.collections-wrap { overflow: hidden; padding-bottom: 3rem; }
+
+	@media (max-width: 800px) {
+		.main-section {
+			--home-card-overlap: 60px;
+			margin-top: min(100svh, 700px);
+		}
 	}
 </style>

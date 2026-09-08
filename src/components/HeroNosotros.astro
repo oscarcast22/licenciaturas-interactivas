@@ -72,7 +72,7 @@ const { img1 } = Astro.props;
         height: 100%;
         top: 0;
         left: 0;
-        background: rgba(0, 0, 0, 0.15);
+        background: linear-gradient(90deg, rgb(0 0 0 / 60%), rgb(0 0 0 / 20%));
         overflow: hidden;
     }
 
@@ -81,18 +81,25 @@ const { img1 } = Astro.props;
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
+        width: min(820px, calc(100% - 3rem));
+        text-align: left;
         color: var(--gray-900);
         z-index: 2;
     }
 
     .text {
-        width: 80%;
-        max-width: 1280px;
+        width: 100%;
+        max-width: 760px;
+        font-size: clamp(.98rem, 1.5vw, 1.12rem);
+        line-height: 1.65;
+    }
+
+    @media (max-width: 700px) {
+        .content { height: 780px; }
+        .content-text { align-items: flex-start; }
     }
 
 </style>
-
 
 
 

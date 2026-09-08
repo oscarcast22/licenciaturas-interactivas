@@ -24,35 +24,47 @@
 <style>
     .hero-content {
         display: flex;
-        margin: -140px auto 90px auto;
-        max-width: 1280px;
+        margin: 0 auto 90px;
+        max-width: 1160px;
         background-color: var(--gray-100);
-        padding: 30px;
-        gap: 15px;
+        padding: 38px 55px 17px;
+        gap: 3.45%;
+        border-radius: 30px;
+        box-shadow: 0 3px 8px rgb(0 0 0 / 20%);
+        position: relative;
+        z-index: 2;
     }
 
     .hero-content h3 {
         color: var(--gray-900);
-        margin: 0;
+        margin: 0 0 5px;
+        font-size: 16px;
+        font-weight: 600;
     }
 
     .hero-content p {
         color: var(--gray-900);
+        margin: 0;
+        font-size: 16px;
+        line-height: 19px;
+        text-align: justify;
     }
 
     .card {
-        width: fit-content;
+        flex: 1;
     }
 
     @media (max-width: 800px) {
         .hero-content{
             flex-direction: column;
+            margin: 0 auto 3rem;
+            padding: 2rem;
         }
     }
 
     @media (max-height: 710px) {
         .hero-content {
-            margin: -105px auto 90px auto;
+            margin: 0 auto 90px;
         }
     }
 </style>

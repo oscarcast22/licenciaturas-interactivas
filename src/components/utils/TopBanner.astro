@@ -23,17 +23,25 @@ const { portada, portada_alt } = Astro.props;
         z-index: -1;
     }
 
+    .banner-container::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgb(0 0 0 / 50%);
+        pointer-events: none;
+    }
+
     .banner-container img {
         object-fit: cover;
         width: 100%;
-        height: 55vh;
+        height: 608px;
         object-position: center;
         transition: height .3s ease;
     }
 
     @media (max-width: 850px) {
         .banner-container img {
-            height: 40vh;
+            height: min(72svh, 608px);
         }
     }
 </style>
