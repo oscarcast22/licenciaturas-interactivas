@@ -5,6 +5,7 @@ dist/
 
 # dependencies
 node_modules/
+licenciaturas-interactivas-legacy-muse-html/
 
 # logs
 npm-debug.log*
