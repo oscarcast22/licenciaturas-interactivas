@@ -30,18 +30,22 @@ const { title } = Astro.props;
 	/* Variables Globales */
 	:root {
 	/* Colores */
-	--black: #020202;
-	--gray-100: #1A1A1A;
-	--gray-300: #868686;
-  	--gray-500: #bbbbbb;
+	--black: #161616;
+	--gray-100: #1a1a1a;
+	--gray-300: #737373;
+	--gray-500: #c9c9c9;
+	--gray-600: #e8e8e8;
 	--gray-900: #f2f2f2;
-  	--gray-950: #f9f9f9;
-  	--red-100: #940124;
- 	--red-200: #c10230;
-
+	--gray-950: #fff;
+	--red-100: #940124;
+	--red-200: #c10230;
+	--surface: #fff;
+	--surface-muted: #f2f2f2;
+	--ink-muted: #666;
+	--page-width: 1200px;
+	--shadow-lg: 0 18px 45px rgb(0 0 0 / 18%);
 	--link-color: #29a9e0;
-
-	--link-hover-color: wite;
+	--link-hover-color: #fff;
 
 	/* Tamaño de fuentes*/
 	--text-xs: 0.75rem;
@@ -54,6 +58,10 @@ const { title } = Astro.props;
 	--text-3xl: 2.625rem;
 	--text-4xl: 3.5rem;
 	--text-5xl: 4.5rem;
+	}
+
+	body {
+		font-family: 'Montserrat Variable', Montserrat, sans-serif;
 	}
 
 	button {

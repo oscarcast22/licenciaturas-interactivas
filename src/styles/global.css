@@ -366,3 +366,25 @@
     *::after {
       box-sizing: border-box;
     }
+
+    html {
+      background: var(--surface-muted);
+      color: var(--black);
+    }
+
+    body {
+      min-width: 320px;
+      color: var(--black);
+      line-height: 1.55;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    h1, h2, h3, p { overflow-wrap: break-word; }
+
+    h1, h2, h3 { line-height: 1.1; }
+
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid var(--link-color);
+      outline-offset: 3px;
+    }
