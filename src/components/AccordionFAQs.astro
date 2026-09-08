@@ -260,12 +260,12 @@ import CollapseButton from './utils/CollapseButton.astro';
 <style>
     .title {
         cursor: pointer;
-        padding: 10px 0;
+        padding: 1rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
         transition: padding .3s ease;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--gray-500);
     }
 
     .title h2 {
@@ -288,7 +288,7 @@ import CollapseButton from './utils/CollapseButton.astro';
     }
 
     .accordion {
-        margin: 50px auto 100px;
+        margin: 0 auto 5rem;
     }
 
     .accordion-content {
@@ -300,6 +300,7 @@ import CollapseButton from './utils/CollapseButton.astro';
 
     .accordion-content p {
         margin: 0 0 1rem;
+        color: var(--ink-muted);
     }
 
     .accordion-content p:last-of-type {

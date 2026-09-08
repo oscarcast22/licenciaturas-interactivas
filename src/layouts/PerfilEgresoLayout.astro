@@ -28,11 +28,13 @@ const { color } = Astro.props;
 
     .perfil-egreso h1 {
 		font-weight: 500;
-		margin: 1.2em 0 .5em 0;
-        font-size: 3em;
+		margin: 1.5em 0 .5em;
+        font-size: clamp(2rem, 4vw, 3.25rem);
 	}
 
     .perfil-egreso h3 {
         font-weight: 550;
     }
+
+    .perfil-egreso p { color: var(--ink-muted); }
 </style>

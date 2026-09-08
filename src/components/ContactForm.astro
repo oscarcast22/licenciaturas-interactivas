@@ -100,28 +100,29 @@ import { nombresLicenciaturas, nombresMaestrias, nombresDoctorados } from '../he
 
     form h1 {
         text-transform: uppercase;
-        font-weight: 800;
+        font-size: clamp(1.9rem, 4vw, 2.8rem);
+        font-weight: 600;
+        margin: 0 0 1.5rem;
     }
 
     form input {
         width: -webkit-fill-available;
         background: none;
-        border-width: 1px;
-        border-color: var(--gray-500);
-        border-style: groove;
+        border: 0;
+        border-bottom: 1px solid var(--gray-500);
         outline: none;
         margin: 6px 0 0;
-        padding: 6px;
+        padding: .65rem .25rem;
     }
 
     .oferta-educativa {
         width: 100%;
-        background-color: var(--gray-900);
-        border-width: 1px;
-        border-color: var(--gray-500);
+        background-color: var(--surface-muted);
+        border: 1px solid var(--gray-500);
         outline: none;
         margin: 6px 0 12px;
-        padding: 6px;
+        border-radius: 8px;
+        padding: .65rem;
     }
 
     .checkbox-container {
@@ -153,11 +154,12 @@ import { nombresLicenciaturas, nombresMaestrias, nombresDoctorados } from '../he
     }
 
     .submit-button input {
-        width: 200px;
+        min-width: 200px;
         background-color: var(--red-200);
         border: none;
         color: var(--gray-900);
-        padding: 10px 20px;
+        border-radius: 999px;
+        padding: .8rem 1.5rem;
         text-align: center;
         display: inline-block;
         font-size: var(--text-base);
