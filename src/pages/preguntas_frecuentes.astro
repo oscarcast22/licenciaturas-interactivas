@@ -79,21 +79,3 @@ import Footer from "../components/Footer.astro";
         }
     }
 </style>
-
-<script>
-    document.addEventListener('astro:page-load', function() {
-        const heroP = document.getElementById('hero-faqs');
-        
-        if (heroP) {
-            window.addEventListener('scroll', function() {
-                const scrollPosition = window.scrollY;
-                const heroBottom = heroP.offsetTop;
-                if (scrollPosition >= heroBottom) {
-                    const distanceFromBottom = scrollPosition - heroBottom;
-                    const parallaxValue = distanceFromBottom * .7;
-                    heroP.style.transform = `translateY(${parallaxValue}px)`;
-                }
-            });
-        }
-    });
-</script>
