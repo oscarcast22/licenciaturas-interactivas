@@ -1,735 +1,591 @@
 ---
-import LogoLiBlanco from "./utils/LogoLiBlanco.astro";
+import { getCollection, type CollectionEntry } from 'astro:content';
+import LogoLiBlanco from './utils/LogoLiBlanco.astro';
 
-import { getCollection } from 'astro:content';
+type Programa = CollectionEntry<'licenciaturas' | 'maestrias' | 'doctorados'>;
+const ordenar = <T extends Programa>(items: T[]) =>
+	[...items].sort((a, b) => a.data.titulo.localeCompare(b.data.titulo, 'es', { sensitivity: 'base' }));
 
-const coleccionLicenciaturas = await getCollection('licenciaturas');
-const coleccionMaestrias = await getCollection('maestrias');
-const coleccionDoctorados = await getCollection('doctorados');
-
-function ordenarPorTitulo(coleccion: any[]) {
-    return coleccion.sort((a: { data: { titulo: string; }; }, b: { data: { titulo: string; }; }) => {
-        const tituloA = (a.data.titulo || '').toUpperCase();
-        const tituloB = (b.data.titulo || '').toUpperCase();
-        return tituloA.localeCompare(tituloB);
-    });
-}
-
-const coleccionLicenciaturasOrdenada = ordenarPorTitulo(coleccionLicenciaturas);
-const coleccionMaestriasOrdenada = ordenarPorTitulo(coleccionMaestrias);
-const coleccionDoctoradosOrdenada = ordenarPorTitulo(coleccionDoctorados);
-
-
-const licenciaturasLinks = coleccionLicenciaturasOrdenada.map((licenciatura) => (
-    { label: licenciatura.data.titulo, href: `/licenciaturas/${licenciatura.id}` }
-));
-
-const maestriasLinks = coleccionMaestriasOrdenada.map((maestria) => (
-    { label: maestria.data.titulo, href: `/maestrias/${maestria.id}` }
-));
-
-const doctoradosLinks = coleccionDoctoradosOrdenada.map((doctorado) => (
-    { label: doctorado.data.titulo, href: `/doctorados/${doctorado.id}` }
-));
-
-
+const licenciaturas = ordenar(await getCollection('licenciaturas'));
+const maestrias = ordenar(await getCollection('maestrias'));
+const doctorados = ordenar(await getCollection('doctorados'));
 const menuLinks = [
-    { label: 'Nosotros', href: '/nosotros' },
-    { label: 'Preguntes Frecuentes', href: '/preguntas_frecuentes' },
-    { label: 'Mis Clases', href: '/66' },
+	{ label: 'Nosotros', href: '/nosotros' },
+	{ label: 'Preguntes Frecuentes', href: '/preguntas_frecuentes' },
+	{ label: 'Mis Clases', href: '/66' },
 ];
+const isCurrent = (href: string) =>
+	Astro.url.pathname === href || (href !== '/' && Astro.url.pathname.startsWith(href));
 ---
-<input type="checkbox" id="menu">
-<header>
-    <div class="nav">
-        <div class="menu-logo">
-            <a class="logo" href="/">
-                <LogoLiBlanco width="220px" color="var(--gray-900)"/>
-            </a>
-        </div>
-        <label id="hamburger" for="menu">
-            <div></div>
-            <div></div>
-            <div></div>
-        </label>
-        <nav>
-            <ul class="menu-links">
-                <li class="submenu" aria-expanded="false">
-                    <button id="submenu-button">
-                        Licenciaturas
-                        <span></span>
-                    </button>
-                    <ul class="oferta-content licenciaturas">
-                        {licenciaturasLinks.map(({ label, href}) => (
-                            <li>
-                                <a 
-                                    class="link oferta"
-                                    href={href}
-                                >
-                                    {label}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </li>
-                <li class="submenu" aria-expanded="false">
-                    <button id="submenu-button">
-                        Posgrados
-                        <span></span>
-                    </button>
-                    <ul class="oferta-content posgrados">
-                        <div class="posg-list">
-                            <p>Maestrías</p>
-                            {maestriasLinks.map(({ label, href}) => (
-                                <li>
-                                    <a 
-                                        class="link oferta"
-                                        href={href}
-                                    >
-                                        {label}
-                                    </a>
-                                </li>
-                            ))}
-                        </div>
-                        <div class="posg-list">
-                            <p>Doctorados</p>
-                            {doctoradosLinks.map(({ label, href}) => (
-                                <li>
-                                    <a 
-                                        class="link oferta"
-                                        href={href}
-                                    >
-                                        {label}
-                                    </a>
-                                </li>
-                            ))}
-                        </div>
-                    </ul>
-                </li>
-                {menuLinks.map(({ label, href }) => (
-                    <li class="menu-item">
-                        <a
-                            aria-current={Astro.url.pathname === href}
-                            class:list={[
-								'link',
-								{
-									active:
-										Astro.url.pathname === href ||
-										(href !== '/' && Astro.url.pathname.startsWith(href)),
-								},
-							]}
-                            href={href}
-                        >
-                            {label}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    </div>
+
+<header class="site-header" data-site-header>
+	<div class="nav-shell">
+		<div class="nav-row">
+			<a class="logo" href="/" aria-label="Licenciaturas Interactivas, inicio">
+				<LogoLiBlanco width="220px" color="var(--gray-900)" />
+			</a>
+			<button id="hamburger" type="button" aria-label="Abrir menú principal" aria-controls="primary-navigation" aria-expanded="false">
+				<span></span><span></span><span></span>
+			</button>
+			<nav class="desktop-navigation" aria-label="Navegación principal">
+				<ul class="menu-links">
+					<li class="menu-item has-dropdown" data-menu="licenciaturas">
+						<button class="menu-trigger" type="button" aria-expanded="false" aria-controls="dropdown-licenciaturas">Licenciaturas</button>
+						<div class="desktop-dropdown" id="dropdown-licenciaturas">
+							<ul class="program-list">
+								{licenciaturas.map((programa) => (
+									<li><a href={`/licenciaturas/${programa.id}`}>{programa.data.titulo}</a></li>
+								))}
+							</ul>
+						</div>
+					</li>
+					<li class="menu-item has-dropdown" data-menu="posgrados">
+						<button class="menu-trigger" type="button" aria-expanded="false" aria-controls="dropdown-posgrados">Posgrados</button>
+						<div class="desktop-dropdown dropdown-posgrados" id="dropdown-posgrados">
+							<section class="program-group" aria-labelledby="desktop-maestrias">
+								<h2 id="desktop-maestrias">Maestrías</h2>
+								<ul class="program-list">
+									{maestrias.map((programa) => (
+										<li><a href={`/maestrias/${programa.id}`}>{programa.data.titulo}</a></li>
+									))}
+								</ul>
+							</section>
+							<section class="program-group" aria-labelledby="desktop-doctorados">
+								<h2 id="desktop-doctorados">Doctorados</h2>
+								<ul class="program-list">
+									{doctorados.map((programa) => (
+										<li><a href={`/doctorados/${programa.id}`}>{programa.data.titulo}</a></li>
+									))}
+								</ul>
+							</section>
+						</div>
+					</li>
+					{menuLinks.map(({ label, href }) => (
+						<li class="menu-item"><a aria-current={isCurrent(href) ? 'page' : undefined} href={href}>{label}</a></li>
+					))}
+				</ul>
+			</nav>
+		</div>
+
+		<nav id="primary-navigation" class="mobile-navigation" aria-label="Navegación principal">
+			<ul class="mobile-menu-links">
+				<li class="mobile-menu-item has-mobile-submenu" data-mobile-menu="licenciaturas">
+					<button class="mobile-menu-trigger" type="button" aria-expanded="false" aria-controls="mobile-panel-licenciaturas">
+						Licenciaturas <span aria-hidden="true"></span>
+					</button>
+					<div class="mobile-submenu" id="mobile-panel-licenciaturas">
+						<ul class="mobile-program-list">
+							{licenciaturas.map((programa) => (
+								<li><a href={`/licenciaturas/${programa.id}`}>{programa.data.titulo}</a></li>
+							))}
+						</ul>
+					</div>
+				</li>
+				<li class="mobile-menu-item has-mobile-submenu" data-mobile-menu="posgrados">
+					<button class="mobile-menu-trigger" type="button" aria-expanded="false" aria-controls="mobile-panel-posgrados">
+						Posgrados <span aria-hidden="true"></span>
+					</button>
+					<div class="mobile-submenu" id="mobile-panel-posgrados">
+						<section class="mobile-program-group" aria-labelledby="mobile-maestrias">
+							<h2 id="mobile-maestrias">Maestrías</h2>
+							<ul class="mobile-program-list">
+								{maestrias.map((programa) => (
+									<li><a href={`/maestrias/${programa.id}`}>{programa.data.titulo}</a></li>
+								))}
+							</ul>
+						</section>
+						<section class="mobile-program-group" aria-labelledby="mobile-doctorados">
+							<h2 id="mobile-doctorados">Doctorados</h2>
+							<ul class="mobile-program-list">
+								{doctorados.map((programa) => (
+									<li><a href={`/doctorados/${programa.id}`}>{programa.data.titulo}</a></li>
+								))}
+							</ul>
+						</section>
+					</div>
+				</li>
+				{menuLinks.map(({ label, href }) => (
+					<li class="mobile-menu-item"><a aria-current={isCurrent(href) ? 'page' : undefined} href={href}>{label}</a></li>
+				))}
+			</ul>
+		</nav>
+	</div>
 </header>
 
 <style>
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 99;
-        padding: 20px 24px;
-        background: transparent;
-        transition: height 0.4s ease;
-        overflow: hidden;
-        z-index: 95;
-        font-size: .93rem;
-        color: var(--gray-900);
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
-        transition: width 0.4s ease, height 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.4s ease;
-    }
+	.site-header {
+		position: fixed;
+		inset: 0 0 auto;
+		z-index: 95;
+		color: var(--gray-900);
+		background: rgb(26 26 26 / 88%);
+		-webkit-backdrop-filter: blur(0);
+		backdrop-filter: blur(0);
+		transition: transform .4s cubic-bezier(.4, 0, .2, 1), backdrop-filter .4s ease;
+		will-change: transform;
+	}
+	.site-header.scrolled,
+	.site-header.has-open-menu { -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+	.nav-shell { max-width: var(--page-width); margin: auto; padding: 14px 24px; }
+	.nav-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 43px; }
+	.logo { flex-shrink: 0; line-height: 0; }
+	.logo :global(svg) { display: block; width: 196px; height: auto; }
+	.desktop-navigation { margin-left: auto; }
+	.menu-links, .program-list, .mobile-menu-links, .mobile-program-list { margin: 0; padding: 0; list-style: none; }
+	.menu-links { display: flex; align-items: center; gap: clamp(.9rem, 2vw, 1.8rem); }
+	.menu-item { position: relative; display: flex; align-items: center; }
+	.menu-item > a,
+	.menu-trigger {
+		position: relative;
+		padding: 0;
+		border: 0;
+		color: var(--gray-900);
+		background: transparent;
+		font-family: inherit;
+		font-size: var(--text-base);
+		font-weight: 600;
+		line-height: 1.15;
+		text-decoration: none;
+		white-space: nowrap;
+		transition: color .25s ease;
+	}
+	.menu-trigger { cursor: pointer; }
+	.menu-item > a::after,
+	.menu-trigger::after {
+		position: absolute;
+		right: 0;
+		bottom: -10px;
+		left: 0;
+		height: 2px;
+		content: '';
+		background: var(--red-200);
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform .28s ease;
+	}
+	.menu-item:hover > a::after,
+	.menu-item:focus-within > a::after,
+	.menu-item > a[aria-current='page']::after,
+	.menu-item.is-open .menu-trigger::after { transform: scaleX(1); transform-origin: left; }
+	.menu-item > a:hover,
+	.menu-trigger:hover,
+	.menu-item.is-open .menu-trigger { color: var(--gray-950); }
+	.desktop-dropdown {
+		position: absolute;
+		top: calc(100% + 31px);
+		left: 50%;
+		box-sizing: border-box;
+		width: max-content;
+		min-width: 330px;
+		max-width: min(430px, calc(100vw - 48px));
+		padding: 20px;
+		border-radius: 12px;
+		background: var(--surface);
+		box-shadow: var(--shadow-lg);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transform: translate(-50%, -8px);
+		transition: opacity .2s ease, transform .25s ease, visibility 0s linear .25s;
+	}
+	.has-dropdown::before {
+		position: absolute;
+		top: 100%;
+		left: -12px;
+		width: calc(100% + 24px);
+		height: 31px;
+		content: '';
+		pointer-events: none;
+	}
+	.has-dropdown.is-open::before { pointer-events: auto; }
+	.has-dropdown.is-open .desktop-dropdown {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: translate(-50%, 0);
+		transition-delay: 0s;
+	}
+	.dropdown-posgrados { display: grid; grid-template-columns: repeat(2, minmax(150px, 1fr)); gap: 24px; min-width: 390px; }
+	.program-group + .program-group { padding-left: 24px; border-left: 1px solid var(--gray-600); }
+	.program-group h2 {
+		margin: 0 0 10px;
+		color: var(--gray-300);
+		font-size: var(--text-xs);
+		font-weight: 700;
+		letter-spacing: .08em;
+		text-transform: uppercase;
+	}
+	.program-list li + li { margin-top: 6px; }
+	.program-list a {
+		display: block;
+		color: var(--black);
+		font-size: var(--text-sm);
+		font-weight: 500;
+		line-height: 1.35;
+		text-decoration: none;
+		transition: color .2s ease;
+	}
+	.program-list a:hover,
+	.program-list a:focus-visible { color: var(--red-200); }
+	.mobile-navigation, #hamburger { display: none; }
 
-    header.scrolled {
-		background: rgb(26 26 26 / 94%);
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
-    }
+	@media (max-width: 1040px) and (min-width: 900px) {
+		.nav-shell { padding-inline: 20px; }
+		.nav-row { gap: 18px; }
+		.logo :global(svg) { width: 180px; }
+		.menu-links { gap: 12px; }
+		.menu-item > a, .menu-trigger { font-size: var(--text-sm); }
+	}
 
-    header.hovered {
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
-    }
-
-    .nav {
-        display: flex;
-        justify-content: space-between;
-        max-width: var(--page-width);
-        margin: auto;
-		min-height: 43px;
-    }
-
-    nav {
-        display: flex;
-    }
-
-    .menu-links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: clamp(.9rem, 2vw, 1.8rem);
-        margin: 0;
-        padding: 0;
-    }
-
-    .menu-logo {
-        display: flex;
-        align-items: center;
-    }
-
-    .menu-logo :global(svg) { display: block; }
-	.menu-logo :global(svg) { width: 196px; height: auto; }
-
-    .menu-item {
-        position: relative;
-    }
-
-    .menu-item::before {
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        content: '';
-        display: block;
-        height: 2px;
-        background: var(--red-200);
-        transition: transform 0.3s ease;
-        width: 100%;
-        transform: scale(0);
-        transform-origin: left;
-        will-change: transform;
-    }
-
-    .menu-item:hover::before {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-
-    .menu-item:not(:hover)::before {
-        transform: scaleX(0);
-        transform-origin: right;
-    }
-
-    .link {
-        color: var(--gray-900);
-        font-weight: 400;
-		font-size: 16px;
-        text-decoration: none;
-        transition: color 0.4s;
-        text-wrap: nowrap;
-    }
-
-    .link:hover {
-        color: var(--link-hover-color);
-    }
-
-    .link.active {
-        color: var(--link-hover-color);
-    }
-
-    .menu-item:has(> .link.active)::before {
-        transform: scaleX(1);
-    }
-
-    .submenu button:hover {
-        color: var(--link-hover-color);
-    }
-
-    .submenu button::before {
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        content: '';
-        display: block;
-        width: 0;
-        height: 2px;
-        background: var(--red-200);
-        transition: transform 0.3s ease;
-        width: 100%;
-        transform: scale(0);
-        transform-origin: left;
-        will-change: transform;
-    }
-
-    .submenu.active button::before {
-        transform: scaleX(1);
-        transform-origin: left;
-    }
-    
-    .submenu:not(.active) button::before {
-        transform: scaleX(0);
-        transform-origin: right;
-    }
-
-    .submenu {
-        position: relative;
-    }
-
-    .submenu button span {
-        position: absolute;
-        bottom: -28px;
-        left: 0;
-        display: block;
-        width: 100%;
-        height: 40px;
-    }
-
-    .submenu button {
-        color: var(--gray-900);
-        font-weight: 400;
-		font-size: 16px;
-        cursor: pointer;
-        background: none;
-        border: none;
-        display: inline-flex;
-        align-items: center;
-        transition: color 0.4s;
-    }
-
-    .submenu.active button {
-        color: var(--link-hover-color);
-    }
-
-    .oferta-content {
-        position: absolute;
-        padding: 1.25rem;
-        column-count: 2;
-        top: 35px;
-        left: 0;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
-        pointer-events: none;
-        background: var(--surface);
-        border-radius: 12px;
-        box-shadow: var(--shadow-lg);
-    }
-
-    .oferta-content p {
-        margin: 0 0 10px;
-        font-size: .75rem;
-        color: var(--gray-300);
-    }
-
-    .link.oferta {
-        color: var(--black);
-        font-size: .9rem;
-        text-wrap: wrap;
-        transition: color 0.3s;
-    }
-
-    .link.oferta:hover {
-        color: var(--red-200) !important;
-    }
-
-    .posgrados {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-    }
-
-    .posg-list {
-        width: 300px;
-        max-width: fit-content;
-        max-width: :state(webkit-fit-content);
-    }
-
-    .posg-list p {
-        font-size: var(--text-xs);
-        text-transform: uppercase;
-    }
-
-    .licenciaturas li {
-        width: max-content;
-    }
-
-    .submenu.active .oferta-content {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: all;
-    }
-
-    .oferta-content li {
-        white-space: nowrap;
-        margin-bottom: 6px;
-    }
-
-    .oferta-content .link:hover {
-        color: var(--primary);
-    }
-
-    #menu {
-        display: none;
-    }
-
-
-    @media (max-width: 1040px) {
-		header { background: rgb(26 26 26 / 94%); padding: 14px 20px; }
-
-        nav {
-            position: absolute;
-            align-items: center;
-            overflow-y: auto;
-            flex-direction: column;
-            top: 100px;
-            left: 0;
-            width: 100%;
-            gap: 1.5rem;
-            align-items: center;
-            transition: height .5s ease;
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity .5s ease;
-        }
-
-        nav .menu-links {
-            flex-direction: column;
-        }
-
-        .submenu button {
-            padding: 0;
-            position: relative;
-        }
-
-        .link {
-            padding: 0;
-        }
-
-        .submenu {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 1.15rem;
-            overflow: hidden;
-            width: min-content;
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-            background-color: rgba(165, 165, 165, 0.15);
-            border-radius: 15px;
-            padding: 7px;
-        }
-
-        .oferta-content {
-            column-count: 1;
-            padding: 20px 15px 18px;
-            position: initial;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .posgrados {
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .posg-list {
-            text-align: center;
-        }
-
-        #hamburger {
-            width: 35px;
-            height: 20px;
-            position: relative;
-            align-self: center;
-            cursor: pointer;
-            margin-bottom: 3.5px;
-        }
-
-        #hamburger div {
-            width: 100%;
-            height: 3px;
-            background: white;
-            position: absolute;
-            transform: translateY(-50%);
-            border-radius: 99px;
-            transition: 0.3s;
-            transform: scale(1);
-        }
-
-        #hamburger div:nth-child(1) {
-            top: 0;
-        }
-
-        #hamburger div:nth-child(2) {
-            top: 50%;
-        }
-
-        #hamburger div:nth-child(3) {
-            top: 100%;
-        }
-
-        #menu:checked + header #hamburger div:nth-child(1) {
-            transform: rotate(45deg);
-            top: 50%;
-        }
-
-        #menu:checked + header #hamburger div:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 50%;
-        }
-
-        #menu:checked + header #hamburger div:nth-child(2) {
-            transform: scale(0);
-            opacity: 0;
-        }
-
-        #menu:checked + header nav {
-            opacity: 1;
-        }
-    }
+	@media (max-width: 899px) {
+		.site-header {
+			overflow: hidden;
+			background: rgb(18 18 18 / 94%);
+			-webkit-backdrop-filter: blur(14px);
+			backdrop-filter: blur(14px);
+			transition: height .4s cubic-bezier(.4, 0, .2, 1), transform .4s cubic-bezier(.4, 0, .2, 1), backdrop-filter .4s ease;
+			will-change: height, transform;
+		}
+		.nav-shell { min-height: 100%; padding: 12px 24px; }
+		.nav-row { flex: 0 0 auto; }
+		.logo :global(svg) { width: 180px; }
+		#hamburger {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			width: 32px;
+			height: 22px;
+			margin: 0 1px 0 0;
+			padding: 0;
+			border: 0;
+			background: transparent;
+			cursor: pointer;
+		}
+		#hamburger span { width: 100%; height: 2px; border-radius: 999px; background: white; transition: transform .25s ease, opacity .25s ease; }
+		.site-header.mobile-open,
+		.site-header.mobile-closing { background: rgb(18 18 18 / 96%); }
+		.site-header.mobile-open { height: 100dvh; touch-action: none; }
+		.site-header.mobile-open #hamburger span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+		.site-header.mobile-open #hamburger span:nth-child(2) { opacity: 0; }
+		.site-header.mobile-open #hamburger span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+		.desktop-navigation { display: none; }
+		.mobile-navigation {
+			display: block;
+			width: 100%;
+			height: 0;
+			min-height: 0;
+			margin-top: 0;
+			overflow: hidden;
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transform: translateY(-12px);
+			transition: opacity .24s ease, transform .32s cubic-bezier(.4, 0, .2, 1), visibility 0s linear .32s;
+		}
+		.site-header.mobile-open .nav-shell,
+		.site-header.mobile-closing .nav-shell { display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+		.site-header.mobile-open .mobile-navigation,
+		.site-header.mobile-closing .mobile-navigation {
+			flex: 1;
+			height: auto;
+			margin-top: 38px;
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			touch-action: pan-y;
+			visibility: visible;
+			pointer-events: auto;
+		}
+		.site-header.mobile-open .mobile-navigation { opacity: 1; transform: translateY(0); transition-delay: .08s, .08s, 0s; }
+		.site-header.mobile-closing .mobile-navigation { opacity: 0; pointer-events: none; transform: translateY(-8px); }
+		.mobile-menu-links { padding-bottom: 28px; }
+		.mobile-menu-item { border-bottom: 1px solid rgb(255 255 255 / 18%); }
+		.mobile-menu-item > a,
+		.mobile-menu-trigger {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			box-sizing: border-box;
+			width: 100%;
+			padding: 16px 0;
+			border: 0;
+			color: var(--gray-900);
+			background: transparent;
+			font-family: inherit;
+			font-size: var(--text-lg);
+			font-weight: 600;
+			line-height: 1.25;
+			text-align: left;
+			text-decoration: none;
+		}
+		.mobile-menu-trigger { cursor: pointer; }
+		.mobile-menu-trigger > span {
+			width: 6px;
+			height: 6px;
+			margin: -4px 4px 0 16px;
+			border-right: 1.5px solid currentColor;
+			border-bottom: 1.5px solid currentColor;
+			transform: rotate(45deg);
+			transition: transform .25s ease, margin .25s ease;
+		}
+		.mobile-menu-item.is-open .mobile-menu-trigger > span { margin-top: 4px; transform: rotate(225deg); }
+		.mobile-submenu {
+			height: 0;
+			overflow: hidden;
+			opacity: 0;
+			transform: translateY(-6px);
+			transition: height .34s cubic-bezier(.4, 0, .2, 1), opacity .2s ease, transform .28s ease;
+		}
+		.mobile-menu-item.is-open .mobile-submenu { opacity: 1; transform: translateY(0); }
+		.mobile-program-list { padding: 0 0 14px; }
+		.mobile-program-list li + li { margin-top: 2px; }
+		.mobile-program-list a {
+			display: block;
+			padding: 7px 0;
+			color: var(--gray-500);
+			font-size: var(--text-sm);
+			font-weight: 500;
+			line-height: 1.35;
+			text-decoration: none;
+		}
+		.mobile-program-list a:hover,
+		.mobile-program-list a:focus-visible { color: var(--red-200); }
+		.mobile-program-group + .mobile-program-group {
+			margin-top: 10px;
+			padding-top: 16px;
+			border-top: 1px solid rgb(255 255 255 / 14%);
+		}
+		.mobile-program-group h2 {
+			margin: 0 0 8px;
+			color: var(--red-200);
+			font-size: var(--text-xs);
+			font-weight: 700;
+			letter-spacing: .12em;
+			text-transform: uppercase;
+		}
+	}
+	@media (max-width: 480px) {
+		.nav-shell { padding: 12px 20px; }
+		.logo :global(svg) { width: 160px; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.site-header, .desktop-dropdown, .mobile-navigation, #hamburger span,
+		.mobile-menu-trigger > span, .mobile-submenu { transition-duration: .01ms; }
+	}
 </style>
 
 <script>
-    const eventListenersMap = new WeakMap<HTMLElement | typeof document, { 
-        mouseEnter: EventListener, 
-        mouseLeave: EventListener, 
-        click: EventListener 
-    }>();
+	const desktopBreakpoint = 899;
+	const closeDelay = 150;
+	let navController: AbortController | undefined;
+	let closeTimer: ReturnType<typeof setTimeout> | undefined;
 
-    function setUpNav() {
-        const nav = document.querySelector('nav') as HTMLElement;
-        const submenus = document.querySelectorAll('.submenu') as NodeListOf<HTMLElement>;
-        const header = document.querySelector('header') as HTMLElement;
-        const menuButton = document.querySelector('#menu') as HTMLInputElement;
-        const breakPointDesktop: number = 1040;
-        let activeSubmenu: HTMLElement | null = null;
-        const buttomPadding = 14;
-        menuButton.checked = false;
-            
-        submenus.forEach(submenu => {
-            const button = submenu.querySelector('#submenu-button') as HTMLElement;
+	function setupNav() {
+		navController?.abort();
+		window.clearTimeout(closeTimer);
+		navController = new AbortController();
+		const { signal } = navController;
+		const header = document.querySelector<HTMLElement>('[data-site-header]');
+		const menuToggle = header?.querySelector<HTMLButtonElement>('#hamburger');
+		const navRow = header?.querySelector<HTMLElement>('.nav-row');
+		const desktopItems = [...(header?.querySelectorAll<HTMLElement>('.desktop-navigation .has-dropdown') ?? [])];
+		const mobileItems = [...(header?.querySelectorAll<HTMLElement>('.has-mobile-submenu') ?? [])];
+		if (!header || !menuToggle || !navRow) return;
 
-            submenu.dataset.isExpanded = 'false';
-            submenu.classList.remove('active');
-            console.log(submenu.dataset.isExpanded);
-            submenu.setAttribute('aria-expanded', 'false');
-            button?.setAttribute('aria-expanded', 'false');
-            
-            if (window.innerWidth <= breakPointDesktop) {
-                submenu.style.width = button.scrollWidth + buttomPadding + 20 + 'px';
-                submenu.style.height = button.offsetHeight + buttomPadding + 'px';
-            } else {
-                submenu.style.height = 'auto';
-                submenu.style.width = 'auto';
-            }
+		const isDesktop = () => window.innerWidth > desktopBreakpoint;
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const mobilePanelTokens = new WeakMap<HTMLElement, number>();
+		let previousViewport = isDesktop();
+		let mobileTransitionToken = 0;
+		let clickOpenedMenu: string | undefined;
+		let lastScrollY = window.scrollY;
+		let headerHidden = false;
 
-            if (eventListenersMap.has(submenu)) {
-                const { mouseEnter, mouseLeave, click } = eventListenersMap.get(submenu)!;
-                submenu.removeEventListener('mouseenter', mouseEnter);
-                submenu.removeEventListener('mouseleave', mouseLeave);
-                button?.removeEventListener('click', click);
-                console.log('removed');
-            }
+		const setDesktopMenu = (name?: string, pinned = false) => {
+			window.clearTimeout(closeTimer);
+			clickOpenedMenu = pinned ? name : undefined;
+			desktopItems.forEach((item) => {
+				const open = item.dataset.menu === name;
+				item.classList.toggle('is-open', open);
+				item.querySelector<HTMLButtonElement>('.menu-trigger')?.setAttribute('aria-expanded', String(open));
+			});
+			header.classList.toggle('has-open-menu', Boolean(name));
+			if (name) {
+				header.style.transform = 'translateY(0)';
+				headerHidden = false;
+			}
+		};
+		const scheduleDesktopClose = () => {
+			if (!isDesktop() || clickOpenedMenu) return;
+			window.clearTimeout(closeTimer);
+			closeTimer = window.setTimeout(() => setDesktopMenu(), closeDelay);
+		};
 
-            if (eventListenersMap.has(document)) {
-                const { click } = eventListenersMap.get(document)!;
-                document.removeEventListener('click', click);
-            }
+		desktopItems.forEach((item) => {
+			const name = item.dataset.menu!;
+			const trigger = item.querySelector<HTMLButtonElement>('.menu-trigger');
+			item.addEventListener('pointerenter', (event) => {
+				if (event.pointerType === 'mouse' && isDesktop()) setDesktopMenu(name);
+			}, { signal });
+			item.addEventListener('pointerleave', (event) => {
+				if (event.pointerType === 'mouse') scheduleDesktopClose();
+			}, { signal });
+			item.addEventListener('focusin', () => {
+				if (isDesktop()) setDesktopMenu(name);
+			}, { signal });
+			item.addEventListener('focusout', (event) => {
+				if (!item.contains(event.relatedTarget as Node | null)) scheduleDesktopClose();
+			}, { signal });
+			trigger?.addEventListener('click', () => {
+				if (!isDesktop()) return;
+				const pinnedOpen = item.classList.contains('is-open') && clickOpenedMenu === name;
+				setDesktopMenu(pinnedOpen ? undefined : name, !pinnedOpen);
+			}, { signal });
+		});
+		document.addEventListener('pointerdown', (event) => {
+			if (isDesktop() && !header.contains(event.target as Node)) setDesktopMenu();
+		}, { signal });
 
-        });
+		const getMobilePanel = (item: HTMLElement) => item.querySelector<HTMLElement>('.mobile-submenu');
+		const resetMobilePanels = () => {
+			mobileItems.forEach((item) => {
+				item.classList.remove('is-open');
+				item.querySelector<HTMLButtonElement>('.mobile-menu-trigger')?.setAttribute('aria-expanded', 'false');
+				const panel = getMobilePanel(item);
+				if (panel) panel.style.height = '';
+			});
+		};
+		const animateMobilePanel = (item: HTMLElement, open: boolean, immediate = false) => {
+			const panel = getMobilePanel(item);
+			const trigger = item.querySelector<HTMLButtonElement>('.mobile-menu-trigger');
+			if (!panel || !trigger) return;
+			const token = (mobilePanelTokens.get(panel) ?? 0) + 1;
+			mobilePanelTokens.set(panel, token);
+			const startHeight = panel.getBoundingClientRect().height;
+			item.classList.toggle('is-open', open);
+			trigger.setAttribute('aria-expanded', String(open));
+			if (immediate || reducedMotion) {
+				panel.style.height = open ? 'auto' : '';
+				return;
+			}
+			const endHeight = open ? panel.scrollHeight : 0;
+			panel.style.height = `${startHeight}px`;
+			panel.getBoundingClientRect();
+			requestAnimationFrame(() => {
+				if (mobilePanelTokens.get(panel) === token) panel.style.height = `${endHeight}px`;
+			});
+			const finish = (event: TransitionEvent) => {
+				if (event.target !== panel || event.propertyName !== 'height' || mobilePanelTokens.get(panel) !== token) return;
+				panel.removeEventListener('transitionend', finish);
+				panel.style.height = open ? 'auto' : '';
+			};
+			panel.addEventListener('transitionend', finish);
+		};
+		const setMobilePanel = (name?: string, immediate = false) => {
+			mobileItems.forEach((item) => {
+				const open = item.dataset.mobileMenu === name;
+				if (item.classList.contains('is-open') !== open) animateMobilePanel(item, open, immediate);
+			});
+		};
+		const collapsedHeight = () => {
+			const styles = window.getComputedStyle(header.querySelector<HTMLElement>('.nav-shell')!);
+			return Math.ceil(navRow.getBoundingClientRect().height + parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom));
+		};
+		const completeMobileTransition = (open: boolean, token: number) => {
+			if (token !== mobileTransitionToken) return;
+			header.style.height = '';
+			header.classList.remove('mobile-closing');
+			if (!open) resetMobilePanels();
+		};
+		const setMobileMenu = (open: boolean, immediate = false) => {
+			const token = ++mobileTransitionToken;
+			const fromHeight = Math.ceil(header.getBoundingClientRect().height);
+			header.style.height = `${fromHeight}px`;
+			if (open) {
+				header.style.transform = 'translateY(0)';
+				headerHidden = false;
+				header.classList.remove('mobile-closing');
+				header.classList.add('mobile-open', 'has-open-menu');
+				menuToggle.setAttribute('aria-expanded', 'true');
+				menuToggle.setAttribute('aria-label', 'Cerrar menú principal');
+			} else {
+				header.classList.remove('mobile-open', 'has-open-menu');
+				header.classList.add('mobile-closing');
+				menuToggle.setAttribute('aria-expanded', 'false');
+				menuToggle.setAttribute('aria-label', 'Abrir menú principal');
+			}
+			const targetHeight = open ? Math.ceil(window.innerHeight) : collapsedHeight();
+			header.getBoundingClientRect();
+			requestAnimationFrame(() => {
+				if (token === mobileTransitionToken) header.style.height = `${targetHeight}px`;
+			});
+			if (immediate || reducedMotion || Math.abs(fromHeight - targetHeight) < 1) {
+				requestAnimationFrame(() => completeMobileTransition(open, token));
+				return;
+			}
+			const finish = (event: TransitionEvent) => {
+				if (event.target !== header || event.propertyName !== 'height') return;
+				header.removeEventListener('transitionend', finish);
+				completeMobileTransition(open, token);
+			};
+			header.addEventListener('transitionend', finish);
+		};
 
-        header.style.height = 'auto';
-        let originalHeight = header.offsetHeight;
+		mobileItems.forEach((item) => {
+			const name = item.dataset.mobileMenu!;
+			item.querySelector<HTMLButtonElement>('.mobile-menu-trigger')?.addEventListener('click', () => {
+				setMobilePanel(item.classList.contains('is-open') ? undefined : name);
+			}, { signal });
+		});
+		menuToggle.addEventListener('click', () => {
+			if (!isDesktop()) setMobileMenu(!header.classList.contains('mobile-open'));
+		}, { signal });
+		document.addEventListener('keydown', (event) => {
+			if (event.key !== 'Escape') return;
+			if (isDesktop()) {
+				const trigger = header.querySelector<HTMLButtonElement>('.has-dropdown.is-open .menu-trigger');
+				if (trigger) {
+					setDesktopMenu();
+					trigger.focus();
+				}
+			} else if (header.classList.contains('mobile-open') || header.classList.contains('mobile-closing')) {
+				setMobileMenu(false);
+				menuToggle.focus();
+			}
+		}, { signal });
 
-        const outsideClickListener = () => {
-                if (window.innerWidth <= breakPointDesktop) return;
-                submenus.forEach(submenu => {
-                    console.log('outsideClickListener');
-                    if (submenu.dataset.isExpanded === 'false') return;
-                    const button = submenu.querySelector('button');
-                    submenu.classList.remove('active');
-                    submenu.dataset.isExpanded = 'false';
-                    submenu.setAttribute('aria-expanded', 'false');
-                    button?.setAttribute('aria-expanded', 'false');
-                    animateHeight(header, header.scrollHeight, originalHeight);
-                });
-            };
+		const handleScroll = () => {
+			const current = window.scrollY;
+			const threshold = navRow.getBoundingClientRect().height;
+			const menuOpen = header.classList.contains('has-open-menu') || header.classList.contains('mobile-closing');
+			header.classList.toggle('scrolled', current > threshold);
+			if (menuOpen || current <= threshold) {
+				header.style.transform = 'translateY(0)';
+				headerHidden = false;
+			} else if (current > lastScrollY && !headerHidden) {
+				header.style.transform = 'translateY(-100%)';
+				headerHidden = true;
+			} else if (current < lastScrollY && headerHidden) {
+				header.style.transform = 'translateY(0)';
+				headerHidden = false;
+			}
+			lastScrollY = current;
+		};
+		window.addEventListener('scroll', handleScroll, { passive: true, signal });
+		window.addEventListener('resize', () => {
+			const nextViewport = isDesktop();
+			if (nextViewport === previousViewport) return;
+			previousViewport = nextViewport;
+			header.style.height = '';
+			header.style.transform = 'translateY(0)';
+			header.classList.remove('mobile-open', 'mobile-closing', 'has-open-menu');
+			menuToggle.setAttribute('aria-expanded', 'false');
+			menuToggle.setAttribute('aria-label', 'Abrir menú principal');
+			setDesktopMenu();
+			setMobilePanel(undefined, true);
+			headerHidden = false;
+		}, { signal });
+		handleScroll();
+	}
 
-        function animateHeight(element: HTMLElement, from: number, to: number | string): void {
-            element.style.height = `${from}px`;
-            element.offsetHeight;
-            element.style.transition = 'width 0.4s ease, height 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.4s ease';
-            element.style.height = `${to === '100%' ? to : to + 'px'}`;
-        }
-
-        function animateWidth(element: HTMLElement, from: number, to: number | string): void {
-            element.style.width = `${from}px`;
-            element.offsetWidth;
-            element.style.transition = 'width 0.4s ease, height 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), backdrop-filter 0.4s ease';
-            element.style.width = `${to === '100%' ? to : to + 'px'}`;
-        }
-
-        function closeAllSubmenus(current?: HTMLElement) {
-            submenus.forEach(submenu => {
-                if (submenu !== current) {
-                    if (submenu.dataset.isExpanded === 'false') return;
-                    const button = submenu.querySelector('button');
-                    submenu.classList.remove('active');
-                    submenu.dataset.isExpanded = 'false';
-                    button?.setAttribute('aria-expanded', 'false');
-                    if (window.innerWidth > breakPointDesktop) {
-                        animateHeight(header, header.scrollHeight, originalHeight);
-                    } else {
-                        animateHeight(submenu, submenu.scrollHeight, button?.offsetHeight + buttomPadding || 0);
-                        animateWidth(submenu, submenu.offsetWidth, button?.offsetWidth + buttomPadding + 20 || 0);
-                    }
-                }
-            });
-        }
-
-        submenus.forEach(submenu => {
-            const button = submenu.querySelector('#submenu-button') as HTMLElement;
-            const content = submenu.querySelector('.oferta-content') as HTMLElement;
-            const contentHeight = content?.scrollHeight || 0;
-            let isExpanded = submenu.dataset.isExpanded === 'true' ? true : false;
-            submenu.classList.remove('active');
-            button?.setAttribute('aria-expanded', 'false');
-
-            const mouseEnterListener = () => {
-                if (window.innerWidth > breakPointDesktop) {
-                    closeAllSubmenus(submenu);
-                    activeSubmenu = submenu;
-                    animateHeight(header, header.scrollHeight, originalHeight + contentHeight - 25);
-                    submenu.classList.add('active');
-                    header.classList.add('hovered');
-                    button?.setAttribute('aria-expanded', 'true');
-                    submenu.setAttribute('aria-expanded', 'true');
-                }
-            };
-
-            const mouseLeaveListener = () => {
-                isExpanded = submenu.dataset.isExpanded === 'true' ? true : false;
-                if (isExpanded) return;
-                if (window.innerWidth >= breakPointDesktop && activeSubmenu === submenu) {
-                    animateHeight(header, header.scrollHeight, originalHeight);
-                    submenu.classList.remove('active');
-                    header.classList.remove('hovered');
-                    button?.setAttribute('aria-expanded', 'false');
-                    activeSubmenu = null;
-                    submenu.dataset.isExpanded = 'false';
-                    submenu.setAttribute('aria-expanded', 'false');
-                }
-            };
-
-            const clickListener = () => {
-                console.log("clickListener");
-                submenu.dataset.isExpanded === 'true' ? submenu.dataset.isExpanded = 'false' : submenu.dataset.isExpanded = 'true';
-                isExpanded = submenu.dataset.isExpanded === 'true' ? true : false;
-                button.setAttribute('aria-expanded', isExpanded.toString());
-                submenu.setAttribute('aria-expanded', isExpanded.toString());
-                event.stopPropagation();
-                activeSubmenu = submenu;
-                closeAllSubmenus(submenu);
-                console.log(submenu.dataset.isExpanded, isExpanded);
-
-                if (window.innerWidth <= breakPointDesktop) {
-                    animateHeight(submenu, button.scrollHeight, isExpanded ? contentHeight + 20 : button.offsetHeight + buttomPadding);
-                    animateWidth(submenu, submenu.offsetWidth, isExpanded ? content.offsetWidth : button.offsetWidth + buttomPadding + 20);
-                } else {
-                    const targetHeight: number = !isExpanded ? originalHeight : originalHeight + contentHeight - 25;
-                    animateHeight(header, header.scrollHeight, targetHeight);
-                }
-            
-                if (isExpanded) {
-                    submenu.classList.add('active');
-                } else {
-                    submenu.classList.remove('active');
-                }
-            };
-
-            eventListenersMap.set(submenu, {
-                mouseEnter: mouseEnterListener,
-                mouseLeave: mouseLeaveListener,
-                click: clickListener,
-            });
-
-            eventListenersMap.set(document, {
-                mouseEnter: () => {}, // No-op function for mouseEnter
-                mouseLeave: () => {}, // No-op function for mouseLeave
-                click: outsideClickListener,
-            });
-
-            submenu.addEventListener('mouseenter', mouseEnterListener);
-            submenu.addEventListener('mouseleave', mouseLeaveListener);
-            button?.addEventListener('click', clickListener);
-            document.addEventListener('click', outsideClickListener);
-        });
-
-        if (window.innerWidth <= breakPointDesktop) {
-            let OriginalHeight = header.offsetHeight;
-
-            function openMenu() {
-                if (menuButton.checked) {
-                    animateHeight(header, originalHeight, "100%");
-                    header.classList.add('scrolled');
-                } else {
-                    animateHeight(header, header.offsetHeight, OriginalHeight);
-                }
-            }
-
-            menuButton.addEventListener('change', openMenu);
-        }
-    };
-
-    let lastScroll = 0;
-    let isHidden = false;
-
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header') as HTMLElement;
-        const menuButton = document.querySelector('#menu') as HTMLInputElement;
-        const currentScroll = window.scrollY;
-        const scrollThreshold = header.offsetHeight;
-        if (menuButton.checked) return
-
-        const scrollingDown = currentScroll > lastScroll;
-        lastScroll = currentScroll;
-
-        if (currentScroll > scrollThreshold) {
-            if (scrollingDown && !isHidden) {
-                header.style.transform = 'translateY(-100%)';
-                isHidden = true;
-            } else if (!scrollingDown && isHidden) {
-                header.style.transform = 'translateY(0)';
-                isHidden = false;
-            }
-        } else {
-            header.style.transform = 'translateY(0)';
-            isHidden = false;
-        }
-
-        header.classList.toggle('scrolled', currentScroll > scrollThreshold);
-    });
-
-    let lastWidth = window.innerWidth;
-
-    function handleResize() {
-        const currentWidth = window.innerWidth;
-
-        if ((currentWidth <= 1040 && lastWidth > 1040) || (currentWidth > 1040 && lastWidth <= 1040)) {
-            setUpNav(); 
-            console.log('setUpNav');
-        }
-
-        lastWidth = currentWidth;
-    }
-
-    document.addEventListener('astro:page-load', setUpNav);
-
-    window.addEventListener('resize', debounce(handleResize, 200));
-
-    function debounce(func, wait) {
-        let timeout;
-        return function(...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), wait);
-        };
-    }
+	document.addEventListener('astro:page-load', setupNav);
 </script>
