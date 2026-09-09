@@ -4,15 +4,12 @@ import Hero from "../components/Hero.astro";
 import HeroContent from "../components/HeroContent.astro";
 import Nav from "../components/Nav.astro";
 import Layout from "../layouts/Layout.astro";
-import TextIndex from "../components/TextIndex.astro"
 import Footer from "../components/Footer.astro"
 import BottomHero from "../components/BottomHero.astro";
 import CollectionCard from "../components/CollectionCard.astro";
 import TextReveal from '../components/TextReveal.astro';
 
 const licenciaturas = (await getCollection('licenciaturas'));
-const maestrias = (await getCollection('maestrias'))
-const doctorados = (await getCollection('doctorados'))
 ---
 
 <Layout title="Licenciaturas Interactivas">
@@ -36,22 +33,7 @@ const doctorados = (await getCollection('doctorados'))
 						id="licenciaturas"
     					items={licenciaturas}
 					/>
-					<CollectionCard 
-						title="Maestrías"
-						imageUrl="/images/portada-maestrias-li.jpg"
-						textAlign="left"
-						id='maestrias'
-						items={maestrias}
-					/>
-					<CollectionCard 
-						title="Doctorados"
-						imageUrl="/images/portada-doctorado-li.jpg"
-    					textAlign="right"
-						id='doctorados'
-						items={doctorados}
-					/>
 				</div>
-				<!-- <TextIndex /> -->
 			</div>
 			<TextReveal text="Educación a tu ritmo de vida" />
 
