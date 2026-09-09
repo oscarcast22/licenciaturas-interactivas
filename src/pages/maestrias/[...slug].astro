@@ -1,14 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import Nav from '../../components/Nav.astro';
-import TopBanner from '../../components/utils/TopBanner.astro';
-import PlanEstudios from '../../components/PlanEstudios.astro';
-import Footer from "../../components/Footer.astro"
-import Banner from "../../components/Banner.astro"
-import PerfilEgresoLayout from '../../layouts/PerfilEgresoLayout.astro';
-import RequisitosButton from '../../components/utils/RequisitosButton.astro';
-import "../../styles/degrees.css"
+import DegreeDetailPage from '../../components/DegreeDetailPage.astro';
 
 interface Props {
 	entry: CollectionEntry<'maestrias'>;
@@ -26,76 +18,13 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<Layout title={entry.data.titulo}>
-	<main>
-		<Nav
-			logo="/images/logo-li-blanco.svg" 
-			hreflogo="/"
-		/>
-		<TopBanner
-			portada={entry.data.portada}
-			portada_alt={entry.data.portada_alt}
-		/>
-		<section class="main-section">
-			<div class="content">
-				<div class="title">
-					<h1 
-						style={`background-color: ${entry.data.color}; font-weight: 500`} 
-					>
-						{entry.data.titulo}
-					</h1>
-					<p
-					>
-						{entry.data.resumen}
-					</p>
-				</div>
-				<RequisitosButton color={entry.data.color}/>
-				<div 
-					id="modelo-educativo"
-				>
-					<h1>Modelo <span style={`color: ${entry.data.color}; font-weight: 650;`}>Educativo</span></h1>
-					<p>
-						El modelo educativo se ofrece como una opción que busca satisfacer la demanda educativa de un importante sector de la sociedad, integrado por personas a quienes se les dificulta llevar un plan escolarizado presencial, mediante un plan de estudios
-						abierto y a distancia.
-						Nuestro modelo educativo se sustenta en principios vigentes y probados de educación a distancia que privilegian el auto aprendizaje mediante el uso de la tecnología, con un enfoque formativo basado en competencias y ligado al desarrollo de habilidades
-						y capacidades en áreas específicas del conocimiento.
-					</p>
-				</div>
-				<div
-					id="modelo-tecnologico"
-				>
-					<h2>
-						Modelo Tecnológico
-					</h2>
-					<p>
-						Se dispone de una base tecnológica sólida, confiable y escalable que permite brindarte un servicio educativo de alta calidad en
-						el que logres los objetivos propuestos y desarrolles tu potencial mediante las herramientas digitales proporcionadas para el
-						modelo.
-					</p>
-				</div>
-				<Banner />
-				<PlanEstudios
-					color={entry.data.color}
-					plan_estudios={entry.data.plan_estudios}
-				/>
-				<PerfilEgresoLayout color={entry.data.color}>
-					<Content />
-				</PerfilEgresoLayout>
-				<div 
-					class="banner" 
-					style="margin: 5.5em 0;"
-				>
-					<div class="image-container-bottom">
-						<img src="/images/banner-contacto.jpg" alt="">
-						<div class="info-button">
-							<a href="/contacto" style={`background-color: ${entry.data.color};`}>
-								Recibe Más Información
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<Footer />
-		</section>
-	</main>
-</Layout>
+<DegreeDetailPage
+	title={entry.data.titulo}
+	portada={entry.data.portada}
+	portadaAlt={entry.data.portada_alt}
+	color={entry.data.color}
+	resumen={entry.data.resumen}
+	planEstudios={entry.data.plan_estudios}
+>
+	<Content />
+</DegreeDetailPage>

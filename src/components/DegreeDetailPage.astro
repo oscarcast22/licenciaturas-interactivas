@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import TopBanner from './utils/TopBanner.astro';
+import Banner from './Banner.astro';
+import PlanEstudios from './PlanEstudios.astro';
+import PerfilEgresoLayout from '../layouts/PerfilEgresoLayout.astro';
+import RequisitosButton from './utils/RequisitosButton.astro';
+import DegreeContactBanner from './DegreeContactBanner.astro';
+import Footer from './Footer.astro';
+import '../styles/degrees.css';
+
+interface Props {
+	title: string;
+	portada: string;
+	portadaAlt: string;
+	color: string;
+	resumen: string;
+	planEstudios: {
+		titulo: string;
+		contenido: string[];
+	}[];
+}
+
+const { title, portada, portadaAlt, color, resumen, planEstudios } = Astro.props;
+---
+
+<Layout title={title}>
+	<main>
+		<Nav logo="/images/logo-li-blanco.svg" hreflogo="/" />
+		<TopBanner portada={portada} portada_alt={portadaAlt} />
+		<section class="main-section">
+			<div class="content">
+				<div class="title">
+					<h1 style={`background-color: ${color}; font-weight: 500`}>
+						{title}
+					</h1>
+					<p>{resumen}</p>
+				</div>
+				<div id="modelo-educativo">
+					<h1>Modelo <span style={`color: ${color}; font-weight: 650;`}>Educativo</span></h1>
+					<p>
+						El modelo educativo se ofrece como una opción que busca satisfacer la demanda educativa de un importante sector de la sociedad, integrado por personas a quienes se les dificulta llevar un plan escolarizado presencial, mediante un plan de estudios abierto y a distancia.
+						Nuestro modelo educativo se sustenta en principios vigentes y probados de educación a distancia que privilegian el auto aprendizaje mediante el uso de la tecnología, con un enfoque formativo basado en competencias y ligado al desarrollo de habilidades y capacidades en áreas específicas del conocimiento.
+					</p>
+				</div>
+				<div id="modelo-tecnologico">
+					<h2>Modelo Tecnológico</h2>
+					<p>
+						Se dispone de una base tecnológica sólida, confiable y escalable que permite brindarte un servicio educativo de alta calidad en el que logres los objetivos propuestos y desarrolles tu potencial mediante las herramientas digitales proporcionadas para el modelo.
+					</p>
+				</div>
+				<Banner />
+				<PlanEstudios color={color} plan_estudios={planEstudios} />
+				<PerfilEgresoLayout color={color}>
+					<slot />
+				</PerfilEgresoLayout>
+				<RequisitosButton color={color} />
+			</div>
+			<DegreeContactBanner color={color} />
+			<Footer />
+		</section>
+	</main>
+</Layout>
