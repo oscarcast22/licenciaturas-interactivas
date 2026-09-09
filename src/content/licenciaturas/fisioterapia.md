@@ -1,12 +1,11 @@
 ---
 titulo: Fisioterapia
 portada: /images/licenciaturas/fisioterapia.jpg
-portada_alt: portada lic Fisioterapia
+portada_alt: Portada de la Licenciatura en Fisioterapia
 color: "#3cb4e5"
+rvoe: "806/2014"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Formar profesionales en Fisioterapia con una sólida base académica y la capacidad de sustentar, establecer e intervenir en cualquier tratamiento fisioterapéutico con el fin de disminuir las limitantes físicas que puedan afectar a nuestra sociedad y aumentar la independencia mediante la rehabilitación.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Biología Celular", "Introducción a la Embriología", "Procesos Bioquímicos y Función Muscular", "Anatomía y Fisiología Humana", "Fundamentos de Inmunología", "Introducción a la Fisioterapia"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Práctica Clínica Básica", "Psicología y Desarrollo Humano", "Imagenología", "Órtesis y Prótesis", "Educación Somática I", "Ergonomía"]
   - titulo: Sexto Bloque
     contenido: ["Semiología Clínica", "Fisioterapia Neurológica I", "Fisioterapia en Ortopedia y Reumatología", "Fisioterapia en Geriatría y Pediatría", "Educación Somática II", "Bases de Terapia Manual"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Fisioterapia Cardiorrespiratoria", "Diagnóstico Funcional y Análisis de Casos", "Bioestadística", "Padecimientos Degenerativos, Metabólicos y Vasculares", "Práctica Clínica en Geriatría", "Aprendizaje y Recuperación de la Función Motora"]
   - titulo: Octavo Bloque
     contenido: ["Paciente Terminal", "Fisioterapia Neurológica II", "Práctica Clínica en Neurología", "Miembro Superior e Inferior", "Áreas de Aplicación de la Fisioterapia en el Deporte", "Práctica Clínica en Ortopedia"]

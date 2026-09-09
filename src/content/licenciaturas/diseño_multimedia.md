@@ -1,12 +1,11 @@
 ---
 titulo: Diseño Multimedia
 portada: /images/licenciaturas/diseño_multimedia.jpg
-portada_alt: portada lic Diseño Multimedia
+portada_alt: Portada de la Licenciatura en Diseño Multimedia
 color: "#d41367"
+rvoe: "En trámite"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Al término de sus estudios de la carrera de Diseño Gráfico, el egresado será capaz de analizar en forma sistemática un problema de diseño y proponer alternativas de solución viables, considerando aspectos teóricos y metodológicos, así como los elementos que conforman un proceso de comunicación apoyado en software especializado.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Diseño Básico", "Dibujo I", "Historia del Diseño Gráfico", "Herramientas Digitales I", "Trazo y Perspectiva", "Comunicación Visual e Introducción a la Comunicación Escrita Efectiva"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Diseño Editorial", "Guión y Narrativa", "Producción y Realización Audiovisual", "Programación Web I", "Mercadotecnia", "Presentación Gráfica"]
   - titulo: Sexto Bloque
     contenido: ["Usabilidad e Interacción", "Post Producción de Sonido y Musicalización", "Publicidad", "Programación Web II", "Desarrollo y Mantenimiento Web I", "Técnicas de Animación"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Imagen", "Post Producción y Efectos Visuales", "Diseño Web", "Marketing Digital", "Desarrollo y Maquetación Web II", "Modelado 3D"]
   - titulo: Octavo Bloque
     contenido: ["Animación de Personajes 3D", "Escaparate y Proyección", "Post Producción y Efectos Visuales", "Emprendimiento y Sustentabilidad", "Texturas, Iluminación y Renderizado 3D", "Portafolio Digital"]

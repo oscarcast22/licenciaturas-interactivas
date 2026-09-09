@@ -3,10 +3,9 @@ titulo: Administración y Gestión Empresarial
 portada: /images/licenciaturas/admon_gestion_empresarial.jpg
 portada_alt: portada lic gestion empresarial
 color: "#00953b"
+rvoe: "803/2013"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Proporcionar al estudiante una sólida base de conocimientos, competencias, habilidades y experiencias en el área empresarial y administrativa que le permita, al momento de su incorporación en el mercado laboral, aportar soluciones y tomar las decisiones más acertadas referentes al marco financiero y administrativo de la organización.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Introducción a la Administración", "Desarrollo y Cultura Organizacional", "Contabilidad I", "Matemáticas para Administradores I", "Bases de Derecho Constitucional", "Técnicas de Investigación"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Elementos de Finanzas", "Estadística para Administradores II", "Derecho Laboral", "Desarrollo de Empresas Familiares y Pymes", "Administración de Empresas de Servicios", "Gestión de Mercados Internacionales"]
   - titulo: Sexto Bloque
     contenido: ["Finanzas", "Tecnologías de Información para Negocios", "Empresas Consultoras", "Identidad Corporativa y Relaciones Públicas", "Finanzas Corporativas", "Investigación de Operaciones"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Sistemas de Información Gerencial", "Planeación Estratégica", "Administración en Organismos Públicos y No Gubernamentales", "Control de Gestión e Indicadores", "Finanzas y Economía Internacional", "Gerencia de Operaciones y Procesos"]
   - titulo: Octavo Bloque
     contenido: ["Metodología para la Toma de Decisiones Empresariales", "Alternativas de Financiamiento", "Proyectos de Inversión", "Responsabilidad Social Empresarial", "Seminario de Investigación", "Estrategias de Posicionamiento de Mercado"]

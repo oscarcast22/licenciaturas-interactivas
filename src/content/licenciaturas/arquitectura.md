@@ -1,12 +1,11 @@
 ---
 titulo: Arquitectura
 portada: /images/licenciaturas/arquitectura.jpg
-portada_alt: portada arquitectura
+portada_alt: Portada de la Licenciatura en Arquitectura
 color: "#e0cc00"
+rvoe: "688"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Formar profesionales con la capacidad de desarrollar proyectos arquitectónicos y urbanísticos, así como de ejecutar y llevar la dirección técnica con base en un conocimiento real de su entorno, evaluando el impacto social y el papel que juega en beneficio de su comunidad, y potenciando el desarrollo económico, cultural, artístico, turístico y urbano.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Diseño I", "Dibujo I", "Geometría Descriptiva I", "Teoría del Diseño I", "Taller de Lectura y Redacción", "Metodología de la Investigación"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Resistencia de Materiales", "Laboratorio de Materiales II", "Materiales Constructivos I", "Historia del Arte III", "Teoría de la Arquitectura II", "Diseño VI y Arquitectura Bioclimática"]
   - titulo: Sexto Bloque
     contenido: ["Materiales Constructivos II", "Taller de la Construcción I", "Estructuras I", "Dibujo Computacional II", "Diseño VII", "Taller de la Construcción II"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Técnicas de Representación I y II", "Instalaciones y Equipos I", "Urbanismo I", "Estructuras II", "Diseño VIII y Ecodiseño", "Instalaciones y Equipos II"]
   - titulo: Octavo Bloque
     contenido: ["Costos y Presupuestos", "Urbanismo II", "Estructuras III", "Diseño Urbano", "Restauración y Rehabilitación", "Introducción a la Administración Inmobiliaria"]

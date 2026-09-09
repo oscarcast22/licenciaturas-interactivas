@@ -1,12 +1,11 @@
 ---
 titulo: Derecho
 portada: /images/licenciaturas/derecho.jpg
-portada_alt: portada lic en derecho
+portada_alt: Portada de la Licenciatura en Derecho
 color: "#001f60"
+rvoe: "686"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Formar integralmente profesionales del derecho en los aspectos técnicos y humanos que, comprometidos con la realidad nacional, sean capaces de distinguir y promover el desarrollo y la seguridad de la sociedad en un ambiente de paz, libertad y justicia, con capacidad para el análisis del problema jurídico, la interpretación de la norma y la imparcialidad en el ejercicio profesional.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Introducción al Estudio del Derecho", "Derecho Romano I", "Sociología", "Historia del Pensamiento Económico", "Metodología", "Derecho Civil I"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Derecho Civil V", "Derecho Internacional Privado", "Derecho del Trabajo", "Derecho Mercantil I", "Derecho Administrativo II", "Derecho Bancario"]
   - titulo: Sexto Bloque
     contenido: ["Derecho de la Seguridad Social", "Derecho Mercantil II", "Derecho Procesal del Trabajo", "Garantías Individuales y Sociales", "Derecho Electoral Mexicano", "Derecho Penitenciario"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Derecho Fiscal I", "Derecho Procesal Mercantil", "Derecho Agrario", "Amparo", "Contratos Mercantiles", "Práctica Penal"]
   - titulo: Octavo Bloque
     contenido: ["Derecho Fiscal II", "Práctica de Amparo", "Medicina Legal", "Práctica Laboral", "Práctica Mercantil", "Práctica Civil"]

@@ -1,12 +1,11 @@
 ---
 titulo: Ciencias y Técnicas de la Comunicación
 portada: /images/licenciaturas/tecnicas_de_la_comunicacion.jpg
-portada_alt: portada licenciatura en ciancias y tecnicas de la comunicacion
+portada_alt: Portada de la Licenciatura en Ciencias y Técnicas de la Comunicación
 color: "#923a7f"
+rvoe: "En trámite"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  El aspirante a ingresar a esta licenciatura deberá contar con sólidos conocimientos gramaticales, capacidad persuasiva, facilidad de palabra, juicio e iniciativa propia; interés para desarrollar habilidades en seleccionar, organizar y evaluar información sobre los acontecimientos sociales; interés por la lectura y análisis de los medios de comunicación; interés por describir, explicar y predecir en forma lógica y organizada los fenómenos de la comunicación.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Ciencias de la Comunicación", "Taller de Expresión Verbal", "Fotografía I", "Taller de Redacción I", "Informática", "Técnicas de Investigación Social"] 
@@ -20,8 +19,8 @@ plan_estudios:
     contenido: ["Empaques y Escaparatismo", "Ciencia Política", "Semiótica y Lingüistica", "Creatividad Empresarial", "Teoría y Técnicas de Investigación Periodística", "Apreciación de Cine"]
   - titulo: Sexto Bloque
     contenido: ["Introducción al Video", "Taller de Medios Impresos", "Mercadotecnia", "Costos y Presupuestos", "Diseño Sonoro para Video", "Teoría de la Imagen y el Sonido"]
-  - titulo: Septimo Bloque
-    contenido: ["Lenguaje Televisivo", "Fotografía Publicitaria y Periodística-", "Opinión Pública", "Dirección Escénica", "Redacción Publicitaria", "Mercadotecnia y Publicidad"]
+  - titulo: Séptimo Bloque
+    contenido: ["Lenguaje Televisivo", "Fotografía Publicitaria y Periodística", "Opinión Pública", "Dirección Escénica", "Redacción Publicitaria", "Mercadotecnia y Publicidad"]
   - titulo: Octavo Bloque
     contenido: ["Análisis de los Contenidos Masivos", "Taller de Video", "Periodismo Digital", "Comunicación Social", "Marketing Político", "Publicidad Gráfica Política"]
   - titulo: Noveno Bloque

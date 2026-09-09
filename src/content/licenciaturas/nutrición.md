@@ -1,12 +1,11 @@
 ---
 titulo: Nutrición
 portada: /images/licenciaturas/nutrición.jpg
-portada_alt: portada-lic-nutrición
+portada_alt: Portada de la Licenciatura en Nutrición
 color: "#3cb4e5"
+rvoe: "728/2012"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Profesionistas con dominio de la atención en nutriología y de las bases científicas de la nutriología, con disposición y capacidad para la investigación y la superación profesional, dominio de la ética profesional, capacidad para asesorar y formar cuerpos ejecutivos y profesionales en nutriología, y sensibilidad para la atención comunitaria y la solución de problemáticas de salud en el estado y la nación.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Anatomía Humana", "Bioquímica I", "Nutrición I", "Fisiología I", "Metodología de la Investigación", "Psicología Básica"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Selección de Alimentos y Legislación Alimentaria", "Nutrición Clínica I", "Dietoterapia I", "Cálculo en Dietoterapia I", "Nutrición en Salud Pública", "Administración en Servicios de Alimentación"]
   - titulo: Sexto Bloque
     contenido: ["Nutrición Clínica II", "Dietoterapia II", "Laboratorio de Dietética I", "Cálculo en Dietoterapia II y Laboratorio de Dietoterapia I", "Bioestadística", "Políticas Alimentarias"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Educación Nutricia", "Tecnología de Alimentos", "Epidemiología", "Metodología para el Diseño de Programas", "Seminario de Nutrición", "Nutrición en el Deporte"]
   - titulo: Octavo Bloque
     contenido: ["Bioética", "Programas de Nutrición Comunitaria", "Seminario de Investigación I", "Tecnología Alimentaria", "Mercadotecnia y Comercialización", "Psicopatología de la Nutrición"]

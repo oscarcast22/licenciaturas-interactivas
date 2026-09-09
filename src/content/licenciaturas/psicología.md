@@ -1,12 +1,11 @@
 ---
 titulo: Psicología
 portada: /images/licenciaturas/psicologia.jpg
-portada_alt: portada-lic-psicología
+portada_alt: Portada de la Licenciatura en Psicología
 color: "#923a7f"
+rvoe: "730/2012"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  La Licenciatura en Psicología pretende que el alumno conozca y comprenda la personalidad y el comportamiento humano mediante el contraste de las diferentes teorías que explican los fenómenos psicológicos.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Matemáticas", "Historía de la Psicologia", "Psicología General I", "Anatomía y Fisiología", "Antropología", "Estadística"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Psicología Experimental", "Psicología Educativa", "Psicología Industrial I", "Psicopatología II", "Teoría y Aplicación de Test II", "Psicopatología Infantil I"]
   - titulo: Sexto Bloque
     contenido: ["Análisis Experimental del Comportamiento", "Psicología Educativa II", "Psicología Industrial II", "Psicofarmacología", "Técnicas Proyectivas I", "Psicoterapia I"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Psicopatología Infantil II", "Técnicas Proyectivas II", "Psicodiagnóstico", "Problemas de Aprendizaje", "Dinámica de Grupos", "Educación Especial"]
   - titulo: Octavo Bloque
     contenido: ["Psicoterapia II", "Orientación Vocacional", "Sexualidad", "Psicología Comunitaria", "Seminario de Autoformación", "Ética Profesional"]

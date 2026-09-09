@@ -1,12 +1,11 @@
 ---
 titulo: Criminología
 portada: /images/licenciaturas/criminologia.jpg
-portada_alt: portada lic criminologia
+portada_alt: Portada de la Licenciatura en Criminología
 color: "#001f60"
+rvoe: "690"
 resumen: |
-  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-  commodo consequat.
+  Licenciados en Criminología con conocimientos en los métodos y técnicas que les posibiliten el estudio, análisis e investigación de las conductas antisociales, con el propósito de actuar en las áreas de prevención, identificación y tratamiento de dichas conductas.
 plan_estudios:
   - titulo: Primer Bloque
     contenido: ["Introducción al Estudio del Derecho", "Derecho Romano I", "Sociología", "Historia del Pensamiento Económico", "Metodología", "Derecho Civil I"] 
@@ -20,7 +19,7 @@ plan_estudios:
     contenido: ["Derecho Penitenciario II", "Medicina Forense I", "Criminología I", "Laboratorio de Fotografía", "Criminalística II", "Psicología Criminológica I"]
   - titulo: Sexto Bloque
     contenido: ["Organización y Administración Policial", "Fotografía Forense", "Química Forense I", "Criminología II", "Psicología Criminológica II", "Medicina Forense II"]
-  - titulo: Septimo Bloque
+  - titulo: Séptimo Bloque
     contenido: ["Psicología Criminológica III", "Victimología", "Criminología III", "Laboratorio de Dactiloscopía", "Medicina Forense III", "Investigación Criminal"]
   - titulo: Octavo Bloque
     contenido: ["Antropología Criminológica I", "Psiquiatría Forense", "Garantías y Amparo", "Laboratorio de Balística", "Cultura de Calidad", "Química Forense II"]
