@@ -74,6 +74,20 @@ El cuerpo usa `line-height: 1.55`; los títulos usan `1.1`. No usar `font-weight
 | `--shadow-lg` | `0 18px 45px rgb(0 0 0 / 18%)` | Menús flotantes y elevaciones amplias. |
 | Sombra de tarjeta de beneficios | `0 3px 8px rgb(0 0 0 / 20%)` | Elevación sutil de la tarjeta oscura del índice. |
 
+### Movimiento
+
+La interfaz usa una pauta editorial: la reacción de controles es breve y las expansiones dan tiempo de lectura.
+
+| Token CSS | Valor | Uso semántico |
+| --- | --- | --- |
+| `--motion-fast` | `160ms` | Hover, subrayados e iconos. |
+| `--motion-base` | `220ms` | Menús, cambios de estado y feedback habitual. |
+| `--motion-expand` | `320ms` | Acordeones, paneles y menú móvil. |
+| `--motion-emphasis` | `480ms` | Transiciones de contenido con mayor énfasis. |
+| `--ease-standard` | `cubic-bezier(.2, .7, .2, 1)` | Curva común de entrada y salida. |
+
+Los carruseles hacen un fundido de `800ms` y permanecen `5.5s` por imagen. Deben pausarse fuera del viewport, con la pestaña oculta, al navegar y cuando se solicite reducir movimiento.
+
 No crear una nueva escala de espacios o radios para una modificación aislada. Si un valor se repite en más de un componente, promoverlo a token global con un nombre semántico.
 
 ## Patrones de componentes
@@ -143,7 +157,7 @@ No sustituir este patrón por `background-attachment: fixed`, offsets calculados
 2. **Reutilizar antes de inventar.** Usar los tokens existentes. Un literal de color, radio, sombra o tipografía nuevo necesita una razón de diseño y, si es reutilizable, un token semántico en `:root`.
 3. **Mantener la fuente de verdad.** Si cambia un token, actualizar en la misma modificación `Layout.astro` y la tabla correspondiente de este archivo. No declarar tokens globales dentro de un componente.
 4. **Limitar el alcance.** Los estilos de componente permanecen encapsulados en su `.astro`; `global.css` se reserva para normalización, elementos base y accesibilidad transversal.
-5. **Movimiento con intención.** No añadir AOS. Una futura animación GSAP debe ser progresiva, funcionar sin JavaScript, respetar `prefers-reduced-motion` y no bloquear contenido ni interacción.
+5. **Movimiento con intención.** No añadir AOS. Las transiciones reutilizan los tokens de movimiento; una animación GSAP debe ser progresiva, funcionar sin JavaScript, respetar `prefers-reduced-motion`, limpiarse al cambiar de ruta y no bloquear contenido ni interacción.
 6. **Verificar.** Tras cambios visuales ejecutar como mínimo `pnpm check`, `pnpm build` y `git diff --check`. Revisar escritorio y móvil, estados hover/focus y, si interviene una imagen fija, su entrada y salida durante el scroll.
 
 ## Lista de verificación de revisión visual

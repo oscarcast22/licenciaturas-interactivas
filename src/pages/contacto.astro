@@ -83,7 +83,6 @@ import ContactForm from "../components/ContactForm.astro";
         color: var(--gray-900);
         text-transform: uppercase;
         margin: 0;
-        transition: all .3s;
     }
 
     .back-btn {
@@ -140,7 +139,6 @@ import ContactForm from "../components/ContactForm.astro";
         margin: auto;
         display: flex;
         max-width: 80%;
-        transition: width .5s;
     }
 
     @media (max-width: 900px) {
@@ -187,10 +185,7 @@ import ContactForm from "../components/ContactForm.astro";
 </style>
 
 <style is:global>
-    .svg-logo svg {
-        width: 350px;
-        transition: all .3s;
-    }
+    .svg-logo svg { width: 350px; }
 
     @media (max-width: 360px) {
         .svg-logo svg {
@@ -199,32 +194,3 @@ import ContactForm from "../components/ContactForm.astro";
     }
 
 </style>
-
-<script>
-    document.addEventListener('astro:page-load', function() {
-        const imageAside = document.querySelector('.aside-image') as HTMLElement;
-        if (imageAside) {
-            function handleScroll() {
-                const scrollPosition = window.scrollY;
-                const imageBottom = imageAside.offsetTop;
-                if (scrollPosition >= imageBottom) {
-                    const distanceFromBottom = scrollPosition - imageBottom;
-                    const parallaxValue = distanceFromBottom * 0.7;
-                    imageAside.style.transform = `translateY(${parallaxValue}px)`;
-                }
-            }
-        
-            function checkViewport() {
-                if (window.innerWidth <= 900) {
-                    window.addEventListener('scroll', handleScroll);
-                } else {
-                    window.removeEventListener('scroll', handleScroll);
-                    imageAside.style.transform = 'none';
-                }
-            }
-        
-            checkViewport();
-            window.addEventListener('resize', checkViewport);
-        }
-    });
-</script>

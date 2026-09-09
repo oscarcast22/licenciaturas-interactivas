@@ -1,6 +1,4 @@
-<div 
-    class="banner"
->
+<div class="banner" data-image-rotator>
     <div class="image-container-bottom">
         <div class="image-fade">
             <img src="/images/banner-lic-li-uad.jpg" alt="">
@@ -36,7 +34,7 @@
         height: 100%;
         object-fit: cover;
         opacity: 0;
-        transition: opacity 1s ease-in-out;
+        transition: opacity 800ms var(--ease-standard);
     }
 
     .image-fade img.active {
@@ -50,7 +48,6 @@
         width: min(90%, 760px);
         transform: translate(-50%, -50%);
         text-align: center;
-        transition: transform .2s ease;
     }
 
     .info-button h1 {
@@ -83,17 +80,49 @@
 </style>
 
 <script>
+    let rotatorController: AbortController | undefined;
+
     document.addEventListener('astro:page-load', () => {
-        const images = document.querySelectorAll('.image-fade img');
+        rotatorController?.abort();
+        rotatorController = new AbortController();
+        const { signal } = rotatorController;
+        const rotator = document.querySelector<HTMLElement>('[data-image-rotator]');
+        if (!rotator) return;
+
+        const images = [...rotator.querySelectorAll<HTMLImageElement>('.image-fade img')];
+        if (images.length < 2) return;
         let currentIndex = 0;
-        
-        function showNextImage() {
+        let interval: ReturnType<typeof window.setInterval> | undefined;
+        let inViewport = false;
+        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+        const showNextImage = () => {
             images[currentIndex].classList.remove('active');
             currentIndex = (currentIndex + 1) % images.length;
             images[currentIndex].classList.add('active');
-        }
+        };
+        const stop = () => {
+            if (interval) window.clearInterval(interval);
+            interval = undefined;
+        };
+        const start = () => {
+            if (!interval && inViewport && !document.hidden && !motionQuery.matches) {
+                interval = window.setInterval(showNextImage, 5500);
+            }
+        };
 
         images[currentIndex].classList.add('active');
-        setInterval(showNextImage, 3500);
+        const observer = new IntersectionObserver(([entry]) => {
+            inViewport = entry.isIntersecting;
+            inViewport ? start() : stop();
+        }, { threshold: 0.5 });
+        observer.observe(rotator);
+        document.addEventListener('visibilitychange', () => document.hidden ? stop() : start(), { signal });
+        motionQuery.addEventListener('change', () => motionQuery.matches ? stop() : start(), { signal });
+        signal.addEventListener('abort', () => {
+            stop();
+            observer.disconnect();
+        }, { once: true });
+        document.addEventListener('astro:before-swap', () => rotatorController?.abort(), { once: true });
     });
 </script>

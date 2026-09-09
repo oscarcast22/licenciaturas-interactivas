@@ -46,6 +46,11 @@ const { title } = Astro.props;
 	--shadow-lg: 0 18px 45px rgb(0 0 0 / 18%);
 	--link-color: #29a9e0;
 	--link-hover-color: #fff;
+	--motion-fast: 160ms;
+	--motion-base: 220ms;
+	--motion-expand: 320ms;
+	--motion-emphasis: 480ms;
+	--ease-standard: cubic-bezier(.2, .7, .2, 1);
 
 	/* Tamaño de fuentes*/
 	--text-xs: 0.75rem;
@@ -65,11 +70,11 @@ const { title } = Astro.props;
 	}
 
 	button {
-		transition: background-color .3s ease;
+		transition: background-color var(--motion-base) var(--ease-standard);
 	}
 
 	a {
-		transition: background-color .3s ease;
+		transition: background-color var(--motion-base) var(--ease-standard);
 	}
 </style>
 
@@ -85,7 +90,7 @@ const { title } = Astro.props;
 	                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - OFFSET;
 	                window.scrollTo({
 	                    top: targetPosition,
-	                    behavior: 'smooth'
+	                    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
 	                });
 	            }, 150);
 	        }

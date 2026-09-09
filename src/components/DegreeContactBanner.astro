@@ -79,7 +79,7 @@ const { color } = Astro.props;
 		text-align: center;
 		text-decoration: none;
 		white-space: nowrap;
-		transition: background-color 0.5s ease, color 0.5s ease;
+		transition: background-color var(--motion-base) var(--ease-standard), color var(--motion-base) var(--ease-standard);
 	}
 
 	.degree-contact a:hover {
@@ -121,11 +121,11 @@ const { color } = Astro.props;
 
 	@keyframes degree-contact-parallax {
 		from {
-			transform: translateY(32px);
+			transform: translateY(20px);
 		}
 
 		to {
-			transform: translateY(-32px);
+			transform: translateY(-20px);
 		}
 	}
 

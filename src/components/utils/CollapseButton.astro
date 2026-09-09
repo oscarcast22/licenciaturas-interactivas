@@ -33,7 +33,7 @@ const { inputName, width, thickness, color, top = "45%" } = Astro.props
         position: absolute;
         width: 100%;
         border-radius: 2px;
-        transition: .5s;
+        transition: transform var(--motion-base) var(--ease-standard);
     }
 
     .toggle-button div:nth-child(1) {

@@ -16,25 +16,45 @@ const { color } = Astro.props;
 </section>
 
 <style is:global>
+    .perfil-egreso {
+        color: var(--ink-muted);
+        font-size: var(--text-base);
+        line-height: 1.55;
+    }
+
     .perfil-egreso ul {
+        margin: 0 0 1.5rem;
         padding: 0;
     }
 
     .perfil-egreso li {
-        margin: .7em 0;
+        margin: 0 0 .75rem;
     }
 
-    .perfil-egreso li:before{content: "- "}
+    .perfil-egreso li::before { content: "- "; }
 
     .perfil-egreso h1 {
-		font-weight: 500;
-		margin: 1.5em 0 .5em;
-        font-size: clamp(2rem, 4vw, 3.25rem);
-	}
-
-    .perfil-egreso h3 {
-        font-weight: 550;
+        margin: 2.5rem 0 1.25rem;
+        font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+        font-weight: 500;
     }
 
-    .perfil-egreso p { color: var(--ink-muted); }
+    .perfil-egreso h2 {
+        margin: 2.5rem 0 1rem;
+        color: var(--black);
+        font-size: var(--text-xl);
+        font-weight: 600;
+    }
+
+    .perfil-egreso h3 {
+        margin: 1.5rem 0 .75rem;
+        color: var(--black);
+        font-size: var(--text-md);
+        font-weight: 600;
+    }
+
+    .perfil-egreso p {
+        margin: 0 0 1.25rem;
+        color: var(--ink-muted);
+    }
 </style>

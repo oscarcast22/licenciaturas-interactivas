@@ -264,7 +264,7 @@ import CollapseButton from './utils/CollapseButton.astro';
         display: flex;
         justify-content: space-between;
         align-items: center;
-        transition: padding .3s ease;
+        transition: padding var(--motion-base) var(--ease-standard);
         border-bottom: 1px solid var(--gray-500);
     }
 
@@ -280,7 +280,7 @@ import CollapseButton from './utils/CollapseButton.astro';
     }
 
     .accordion-title {
-        transition: font-weight .3s ease;
+        transition: font-weight var(--motion-base) var(--ease-standard);
     }
 
     .accordion-title-expanded {
@@ -295,7 +295,7 @@ import CollapseButton from './utils/CollapseButton.astro';
         height: 0;
         padding: 0 16px;
         overflow: hidden;
-        transition: all .5s ease;
+        transition: height var(--motion-expand) var(--ease-standard), padding var(--motion-expand) var(--ease-standard);
     }
 
     .accordion-content p {

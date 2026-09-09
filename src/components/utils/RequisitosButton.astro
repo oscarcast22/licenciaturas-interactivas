@@ -50,7 +50,7 @@ const { color }= Astro.props
     .reqs {
         height: 0;
         overflow: hidden;
-        transition: height 0.4s ease-out, padding 0.4s ease-out;
+        transition: height var(--motion-expand) var(--ease-standard), padding var(--motion-expand) var(--ease-standard);
         text-align: center;
         color: var(--ink-muted);
     }

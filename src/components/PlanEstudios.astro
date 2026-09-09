@@ -31,9 +31,7 @@ const { color, plan_estudios } = Astro.props
                     <h3>{plan.titulo}</h3>
                     <ul>
                         {plan.contenido.map((item) => (
-                            <div style="display: flex;" >
-                                - <li>{item}</li>
-                            </div>
+                            <li>{item}</li>
                         ))}
                     </ul>
                 </div>
@@ -68,30 +66,32 @@ const { color, plan_estudios } = Astro.props
         grid-template-columns: 1fr 1fr 1fr;
         column-gap: 15px;
         row-gap: 2rem;
-        transition: all 1s ease;
     }
 
     .grid-units h3 {
         color: var(--black);
-        margin: 0 0 .8em;
-        font-size: 1.1rem;
+        margin: 0 0 .75rem;
+        font-size: var(--text-md);
+        font-weight: 600;
     }
 
     .grid-item ul {
+        margin: 0;
         padding: 0;
-        display: flex;
-        flex-direction: column;
     }
 
     .grid-item li {
-        color: var(--gray-300);
-        margin-bottom: .5em;
+        margin: 0 0 .5rem;
+        color: var(--ink-muted);
+        line-height: 1.55;
     }
+
+    .grid-item li::before { content: "- "; }
     
     .collapsible-content {
         height: 0;
         overflow: hidden;
-        transition: height .6s ease;
+        transition: height var(--motion-expand) var(--ease-standard);
         background: var(--surface);
         border-radius: 0 0 14px 14px;
     }

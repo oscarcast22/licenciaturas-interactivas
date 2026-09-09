@@ -55,12 +55,12 @@ const sortedItems = items.sort((a, b) => {
 <style>
     .collection-card {
         scroll-margin-top: 110px;
-        margin: 0;
+        margin: 0 0 34px;
     }
 
     .summary {
         max-width: 994px;
-        margin: 0 auto 34px;
+        margin: 0 auto;
         cursor: pointer;
     }
 
@@ -92,7 +92,7 @@ const sortedItems = items.sort((a, b) => {
         width: 100%;
         height: 451px;
         object-fit: cover;
-        transition: transform 0.4s ease
+        transition: transform var(--motion-base) var(--ease-standard);
         
     }
 
@@ -137,21 +137,14 @@ const sortedItems = items.sort((a, b) => {
 
     .details {
         height: 0;
-        margin: auto;
+        margin: 0 auto;
         overflow: hidden;
-        transition: height 1.5s ease 0s;
         max-width: 994px;
         background-color: var(--surface);
         border-radius: 0;
         box-shadow: none;
-        transition: all .4s;
+        transition: height var(--motion-expand) var(--ease-standard);
     }
-
-    .details.open {
-        margin: 0 auto 1rem;
-    }
-
-    .collection-card:has(.details.open) .summary { margin-bottom: 0; }
 
     .details ul {
         margin: 0;
@@ -170,7 +163,7 @@ const sortedItems = items.sort((a, b) => {
         text-decoration: none;
         color: var(--ink-muted);
         font-weight: 300;
-        transition: color .3s ease;
+        transition: color var(--motion-base) var(--ease-standard);
         font-size: 16px;
     }
 
@@ -201,24 +194,48 @@ const sortedItems = items.sort((a, b) => {
 
 <script>
     document.addEventListener('astro:page-load', () => {
-    const cards = document.querySelectorAll('.collection-card');
+        const cards = document.querySelectorAll<HTMLElement>('.collection-card');
 
-    cards.forEach((card) => {
-        const checkbox = card.querySelector('.collapse-checkbox') as HTMLInputElement;
-        const collapsibleContent = card.querySelector('.details') as HTMLElement;
+        cards.forEach((card) => {
+            const checkbox = card.querySelector<HTMLInputElement>('.collapse-checkbox');
+            const collapsibleContent = card.querySelector<HTMLElement>('.details');
+            if (!checkbox || !collapsibleContent) return;
 
-        if (checkbox && collapsibleContent) {
-            checkbox.addEventListener('change', () => {
-                if (checkbox.checked) {
-                    collapsibleContent.classList.add('open');
-                    collapsibleContent.style.height = `${collapsibleContent.scrollHeight}px`;
-                } else {
-                    collapsibleContent.classList.remove('open');
-                    collapsibleContent.style.height = '0';
+            let transitionToken = 0;
+            let clearTransitionEnd: (() => void) | undefined;
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            const setHeight = (open: boolean) => {
+                clearTransitionEnd?.();
+                const token = ++transitionToken;
+                const startHeight = collapsibleContent.getBoundingClientRect().height;
+                const endHeight = open ? collapsibleContent.scrollHeight : 0;
+
+                if (reducedMotion.matches) {
+                    collapsibleContent.style.height = open ? 'auto' : '0';
+                    return;
                 }
-            });
+
+                collapsibleContent.style.height = `${startHeight}px`;
+                collapsibleContent.getBoundingClientRect();
+                requestAnimationFrame(() => {
+                    if (token === transitionToken) collapsibleContent.style.height = `${endHeight}px`;
+                });
+
+                const finish = (event: TransitionEvent) => {
+                    if (event.target !== collapsibleContent || event.propertyName !== 'height' || token !== transitionToken) return;
+                    clearTransitionEnd?.();
+                    if (open) collapsibleContent.style.height = 'auto';
+                };
+                clearTransitionEnd = () => {
+                    collapsibleContent.removeEventListener('transitionend', finish);
+                    clearTransitionEnd = undefined;
+                };
+                collapsibleContent.addEventListener('transitionend', finish);
+            };
+
+            checkbox.addEventListener('change', () => setHeight(checkbox.checked));
             collapsibleContent.style.height = '0';
-        }
-    });
+        });
     });
 </script>

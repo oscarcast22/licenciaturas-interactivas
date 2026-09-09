@@ -7,7 +7,7 @@ const { text } = Astro.props;
 
 const words = text.split(" ");
 ---
-<div class="text-reveal">
+<div class="text-reveal" data-text-reveal>
   <div class="text-container">
     {words.map((word, index) =>
         index < words.length - 1 ? <span class="word">{word}&nbsp;</span> : <span class="word">{word}</span>
@@ -37,10 +37,14 @@ const words = text.split(" ");
 
   .word {
     display: inline-block;
-    opacity: 0.15;
-    will-change: opacity;
+    opacity: 1;
     text-transform: uppercase;
     color: var(--gray-300);
+  }
+
+  .text-reveal.is-enhanced .word {
+    opacity: 0.15;
+    will-change: opacity;
   }
 
   @media screen and (max-width: 760px) {
@@ -67,17 +71,28 @@ const words = text.split(" ");
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
   gsap.registerPlugin(ScrollTrigger);
+  let revealContext: gsap.Context | undefined;
 
   document.addEventListener('astro:page-load', () => {
-    gsap.to('.word', {
-      opacity: 1,
-      stagger: 0.2,
-      scrollTrigger: {
-        trigger: '.text-reveal',
-        start: 'top center',
-        end: 'bottom center',
-        scrub: 1,
-      },
-    });
+    revealContext?.revert();
+    const reveal = document.querySelector<HTMLElement>('[data-text-reveal]');
+    if (!reveal || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    reveal.classList.add('is-enhanced');
+    revealContext = gsap.context(() => {
+      gsap.to(reveal.querySelectorAll('.word'), {
+        opacity: 1,
+        stagger: 0.08,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: reveal,
+          start: 'top 62%',
+          end: 'bottom 38%',
+          scrub: 0.45,
+        },
+      });
+    }, reveal);
+
+    document.addEventListener('astro:before-swap', () => revealContext?.revert(), { once: true });
   });
 </script>
