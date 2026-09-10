@@ -5,28 +5,28 @@ import Layout from "../layouts/Layout.astro";
 import ContactForm from "../components/ContactForm.astro";
 ---
 
-<Layout title="Contacto">
-    <section class="contacto" transition:animate="slide">
+<Layout title="Contacto" page="contact">
+    <section class="contacto">
         <aside class="aside-image" >
-            <img src="/images/contacto.jpg" alt="">
-            <div class="head-text">
-                <h1 style="font-weight: 500;">La opción</h1>
-                <h1>A la Excelencia</h1>
+            <img src="/images/contacto.jpg" alt="" data-motion-load-media>
+            <div class="head-text" data-motion-load-group>
+                <h1 style="font-weight: 500;" data-motion-load-item>La opción</h1>
+                <h1 data-motion-load-item>A la Excelencia</h1>
             </div>
         </aside>
-        <aside class="form-section">
+        <aside class="form-section" data-motion-load-group>
             <a class="back-btn" href="/">
                 <svg  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
                 </svg>
                 <p>Regresar</p>
             </a>
-            <div class="form-logo">
+            <div class="form-logo" data-motion-load-item>
                 <a class="svg-logo" href="/">
                     <LogoLiColor />
                 </a>
             </div>
-            <div class="form-container">
+            <div class="form-container" data-motion-load-item>
                 <ContactForm />
                 <div class="footer" >
                     <SocialMediaIcons color="#a4a4a4" width="30px"/>

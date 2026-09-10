@@ -19,11 +19,11 @@ const sortedItems = items.sort((a, b) => {
     class="collection-card"
     id={id}
 >
-    <div class="summary">
+    <div class="summary" data-motion-reveal-media>
         <input type="checkbox" id={`collapse-${title}`} class="collapse-checkbox">
         <label for={`collapse-${title}`}>
             <div class="card">
-                <img src={imageUrl} alt={`imagen de ${title}`}>
+                <img src={imageUrl} alt={`imagen de ${title}`} data-motion-media-image>
                 <div
                     class:list={[
                         'overlay',

@@ -9,25 +9,25 @@ const { img1 } = Astro.props;
 ---
 <div class="container" id="hero-nosotros">
     <div class="content">
-        <div 
-            class="content-text" 
-        >
-            <LogoLiBlanco
-                color="var(--gray-900)"
-                width="360px"
-                maxWidth="75%"
-            />
+        <div class="content-text" data-motion-load-group>
+            <div class="logo-motion" data-motion-load-item>
+                <LogoLiBlanco
+                    color="var(--gray-900)"
+                    width="360px"
+                    maxWidth="75%"
+                />
+            </div>
             <div class="text">
-                <p>
+                <p data-motion-load-item>
                     Fomento Educativo y Cultura Francisco de Ibarra A.C. es el organismo que da vida a nuestra casa de estudios de 11 de Febrero de 1992, fecha desde la cual trabajamos incansablemente, siempre apegados a los conceptos filosóficos que han guiado nuestro accionar, los cuales nos impulsan al cumplimiento de los objetivos que nos hemos propuesto, colaborar día con día a mejorar las condiciones generales de nuestra región y contribuir a desarrollo de nuestro país.
                 </p>
-                <p>
+                <p data-motion-load-item>
                     La Universidad Autónoma de Durango pretende obtener un lugar en nuestra sociedad mediante el estímulo y fomento a la educación, a la cultura y a la investigación teniendo como elemento indispensable una visión hacia la excelencia que permita a los hombres de nuestra comunidad desarrollarse y vincularse productivamente con su país y con el exterior, crear en el seno de la comunidad universitaria hombres libres capaces de cambiar su entorno y manifestarse como personas útiles a su sociedad.
                 </p>
             </div>
         </div>
         <div class="image">
-            <img src={img1} alt="Imagen 1">
+            <img src={img1} alt="Imagen 1" data-motion-load-media>
         </div>
     </div>
 </div>
@@ -93,13 +93,19 @@ const { img1 } = Astro.props;
         line-height: 1.65;
     }
 
+    .logo-motion {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
     @media (max-width: 700px) {
         .content { height: 780px; }
         .content-text { align-items: flex-start; }
+        .logo-motion { justify-content: flex-start; }
     }
 
 </style>
-
 
 
 

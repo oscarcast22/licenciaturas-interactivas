@@ -8,6 +8,7 @@ const { color }= Astro.props
 
 <div 
     class="container-reqs"
+    data-motion-reveal
 >
     <button class="reqs-btn" style={`background-color: ${color}`}>Requisitos</button>
     <div class="reqs">
@@ -53,6 +54,7 @@ const { color }= Astro.props
         transition: height var(--motion-expand) var(--ease-standard), padding var(--motion-expand) var(--ease-standard);
         text-align: center;
         color: var(--ink-muted);
+        line-height: 20px;
     }
 
 
@@ -67,7 +69,7 @@ const { color }= Astro.props
     }
 
     .reqs ul li {
-        margin-bottom: 5px;
+        margin: 0;
     }
 
     .reqs ul li::before {

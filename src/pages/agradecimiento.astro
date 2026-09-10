@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 ---
-<Layout title="Gracias por contactarnos">
-    <section transition:animate="slide">
-        <div class="centered-content">
-            <h1>Gracias por contactarnos</h1>
-            <p>Nuestro equipo se pondra en contacto contigo a la brevedad</p>
-            <a href="/">Volver a inicio</a>
+<Layout title="Gracias por contactarnos" page="thanks">
+    <section>
+        <div class="centered-content" data-motion-load-group>
+            <h1 data-motion-load-item>Gracias por contactarnos</h1>
+            <p data-motion-load-item>Nuestro equipo se pondra en contacto contigo a la brevedad</p>
+            <a href="/" data-motion-load-item>Volver a inicio</a>
         </div>
     </section>
 </Layout>

@@ -9,15 +9,13 @@ const { title, subtitle, img1 } = Astro.props;
 ---
 <div class="hero-container" id="hero">
     <div class="slider">
-        <div 
-            class="slide-text" 
-        >
-            <h1>{title}</h1>
-            <h2>{subtitle}</h2>
-            <a href="/#licenciaturas">Conoce nuestra oferta educativa</a>
+        <div class="slide-text" data-motion-load-group>
+            <h1 data-motion-load-item>{title}</h1>
+            <h2 data-motion-load-item>{subtitle}</h2>
+            <a href="/#licenciaturas" data-motion-load-item>Conoce nuestra oferta educativa</a>
         </div>
         <div class="slide-image">
-            <img src={img1} alt="Imagen 1">
+            <img src={img1} alt="Imagen 1" data-motion-load-media>
         </div>
     </div>
 </div>

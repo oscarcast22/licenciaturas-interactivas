@@ -10,9 +10,9 @@ const { title, img1 } = Astro.props;
     <div class="viewport-image" aria-hidden="true">
         <img src={img1} alt="" />
     </div>
-    <div class="hero-text">
-        <h1>{title}</h1>
-        <a href="/contacto">Recibe más información</a>
+    <div class="hero-text" data-motion-reveal>
+        <h1 data-motion-reveal-item>{title}</h1>
+        <a href="/contacto" data-motion-reveal-item>Recibe más información</a>
     </div>
 </section>
 

@@ -19,10 +19,11 @@ section {
     display: flow-root;
 }
 
-section p {
-    margin-bottom: 40px;
-    color: #666;
-    line-height: 1.5;
+.content > div > p {
+    margin: 0 0 19px;
+    color: var(--ink-muted);
+    font-size: var(--text-base);
+    line-height: 19px;
 }
 
 .title h1 {
@@ -51,7 +52,7 @@ h1 {
     width: 100%;
     margin: 0 0 67px;
     color: #333;
-    font-size: 16px;
+    font-size: var(--text-base);
     line-height: 19px;
     text-align: left;
 }

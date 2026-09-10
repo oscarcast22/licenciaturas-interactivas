@@ -1,0 +1,167 @@
+<script>
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
+	const animatedPages = new Set(['home', 'about', 'program', 'contact', 'thanks']);
+	let motionContext: gsap.Context | undefined;
+	let motionController: AbortController | undefined;
+	let activePage: string | undefined;
+	let enhancedTextReveals: HTMLElement[] = [];
+
+	const cleanUpMotion = () => {
+		motionController?.abort();
+		motionController = undefined;
+		motionContext?.revert();
+		motionContext = undefined;
+		enhancedTextReveals.forEach((element) => element.classList.remove('is-enhanced'));
+		enhancedTextReveals = [];
+		activePage = undefined;
+	};
+
+	const initializeMotion = () => {
+		const body = document.body;
+		const page = body.dataset.page;
+		if (page && page === activePage) return;
+
+		cleanUpMotion();
+		body.removeAttribute('data-page-motion');
+		if (!page || !animatedPages.has(page)) return;
+		activePage = page;
+
+		motionController = new AbortController();
+		const { signal } = motionController;
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		reducedMotion.addEventListener('change', () => {
+			cleanUpMotion();
+			initializeMotion();
+		}, { once: true, signal });
+
+		if (reducedMotion.matches) return;
+
+		motionContext = gsap.context(() => {
+			const loadMedia = [...body.querySelectorAll<HTMLElement>('[data-motion-load-media]')];
+			loadMedia.forEach((element) => {
+				gsap.fromTo(element,
+					{ autoAlpha: .82, scale: 1.018, filter: 'saturate(.88)' },
+					{
+						autoAlpha: 1,
+						scale: 1,
+						filter: 'saturate(1)',
+						duration: 1.1,
+						ease: 'power3.out',
+						clearProps: 'opacity,visibility,transform,filter',
+					},
+				);
+			});
+
+			const loadGroups = [...body.querySelectorAll<HTMLElement>('[data-motion-load-group]')];
+			loadGroups.forEach((group) => {
+				const items = [...group.querySelectorAll<HTMLElement>('[data-motion-load-item]')];
+				if (!items.length) return;
+
+				gsap.set(items, { autoAlpha: 0, y: 26, filter: 'blur(10px)' });
+				gsap.to(items, {
+					autoAlpha: 1,
+					y: 0,
+					filter: 'blur(0px)',
+					duration: .58,
+					stagger: .075,
+					delay: .08,
+					ease: 'power3.out',
+					clearProps: 'opacity,visibility,transform,filter',
+				});
+			});
+
+			const revealMedia = [...body.querySelectorAll<HTMLElement>('[data-motion-reveal-media]')];
+			revealMedia.forEach((container) => {
+				const image = container.querySelector<HTMLElement>('[data-motion-media-image]');
+				gsap.set(container, { autoAlpha: 0, y: 36 });
+				if (image) gsap.set(image, { filter: 'blur(10px)' });
+
+				const timeline = gsap.timeline({
+					scrollTrigger: {
+						trigger: container,
+						start: 'top 78%',
+						once: true,
+						invalidateOnRefresh: true,
+					},
+				});
+				timeline.to(container, {
+					autoAlpha: 1,
+					y: 0,
+					duration: .72,
+					ease: 'power3.out',
+					clearProps: 'opacity,visibility,transform',
+				});
+				if (image) {
+					timeline.to(image, {
+						filter: 'blur(0px)',
+						duration: .82,
+						ease: 'power3.out',
+						clearProps: 'filter',
+					}, '<');
+				}
+			});
+
+			const revealGroups = [...body.querySelectorAll<HTMLElement>('[data-motion-reveal]')];
+			revealGroups.forEach((group) => {
+				const markedItems = [...group.querySelectorAll<HTMLElement>('[data-motion-reveal-item]')];
+				const items = markedItems.length ? markedItems : [group];
+				gsap.set(items, { autoAlpha: 0, y: 24, filter: 'blur(9px)' });
+				gsap.to(items, {
+					autoAlpha: 1,
+					y: 0,
+					filter: 'blur(0px)',
+					duration: .56,
+					stagger: .08,
+					ease: 'power3.out',
+					clearProps: 'opacity,visibility,transform,filter',
+					scrollTrigger: {
+						trigger: group,
+						start: 'top 78%',
+						once: true,
+						invalidateOnRefresh: true,
+					},
+				});
+			});
+
+			const textReveals = [...body.querySelectorAll<HTMLElement>('[data-text-reveal]')];
+			textReveals.forEach((reveal) => {
+				const words = [...reveal.querySelectorAll<HTMLElement>('.word')];
+				if (!words.length) return;
+				reveal.classList.add('is-enhanced');
+				enhancedTextReveals.push(reveal);
+				gsap.to(words, {
+					opacity: 1,
+					stagger: .08,
+					ease: 'none',
+					scrollTrigger: {
+						trigger: reveal,
+						start: 'top 62%',
+						end: 'bottom 38%',
+						scrub: .45,
+						invalidateOnRefresh: true,
+					},
+				});
+			});
+
+			window.requestAnimationFrame(() => ScrollTrigger.refresh());
+		}, body);
+	};
+
+	initializeMotion();
+	document.addEventListener('astro:before-swap', cleanUpMotion);
+	document.addEventListener('astro:page-load', initializeMotion);
+</script>
+
+<style is:global>
+	@media (prefers-reduced-motion: no-preference) {
+		body[data-page-motion='pending'] [data-motion-load-item] {
+			opacity: 0;
+			filter: blur(10px);
+			transform: translate3d(0, 26px, 0);
+		}
+	}
+</style>

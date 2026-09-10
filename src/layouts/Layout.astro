@@ -3,12 +3,17 @@ import { ClientRouter } from 'astro:transitions';
 import 'select2/dist/css/select2.min.css';
 import '@fontsource-variable/montserrat';
 import '../styles/global.css';
+import PageMotion from '../components/PageMotion.astro';
+
+type PageId = 'home' | 'about' | 'program' | 'contact' | 'thanks' | 'faq';
 
 interface Props {
 	title: string;
+	page?: PageId;
 }
 
-const { title } = Astro.props;
+const { title, page } = Astro.props;
+const motionEnabled = page !== undefined && page !== 'faq';
 ---
 
 <!doctype html>
@@ -21,8 +26,20 @@ const { title } = Astro.props;
 		<title>{title}</title>
 		<ClientRouter />
 	</head>
-	<body>
+	<body data-page={page} data-page-motion={motionEnabled ? 'pending' : undefined}>
+		{motionEnabled && (
+			<noscript>
+				<style is:inline>
+					body[data-page-motion='pending'] [data-motion-load-item] {
+						opacity: 1 !important;
+						filter: none !important;
+						transform: none !important;
+					}
+				</style>
+			</noscript>
+		)}
 		<slot />
+		<PageMotion />
 	</body>
 </html>
 

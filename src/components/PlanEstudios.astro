@@ -14,6 +14,7 @@ const { color, plan_estudios } = Astro.props
 
 <div 
     class="plan_estudios"
+    data-motion-reveal
 >
     <label for="button-collapse" class="title" style={`background-color: ${color};`}>
         <h2>Plan de Estudios</h2>
@@ -65,14 +66,15 @@ const { color, plan_estudios } = Astro.props
         padding: 2rem;
         grid-template-columns: 1fr 1fr 1fr;
         column-gap: 15px;
-        row-gap: 2rem;
+        row-gap: 1.5rem;
     }
 
     .grid-units h3 {
         color: var(--black);
-        margin: 0 0 .75rem;
-        font-size: var(--text-md);
-        font-weight: 600;
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 24px;
     }
 
     .grid-item ul {
@@ -81,9 +83,10 @@ const { color, plan_estudios } = Astro.props
     }
 
     .grid-item li {
-        margin: 0 0 .5rem;
+        margin: 0;
         color: var(--ink-muted);
-        line-height: 1.55;
+        font-size: var(--text-base);
+        line-height: 22px;
     }
 
     .grid-item li::before { content: "- "; }

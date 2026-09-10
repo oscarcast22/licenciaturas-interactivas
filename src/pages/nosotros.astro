@@ -6,14 +6,12 @@ import Accordion from "../components/Accordion.astro";
 import Footer from "../components/Footer.astro";
 import BottomBanner from "../components/BottomBanner.astro"
 ---
-<Layout title="Nosotros">
+<Layout title="Nosotros" page="about">
     <Nav />
     <HeroNosotros img1="/images/portada-nosotros-fachada-uad.jpg"/>
     <main>
         <section>
-            <h1 
-                class="title"
-            >
+            <h1 class="title" data-motion-reveal>
                 Nosotros
             </h1>
             <Accordion />

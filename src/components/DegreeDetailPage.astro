@@ -25,20 +25,20 @@ interface Props {
 const { title, portada, portadaAlt, color, resumen, planEstudios } = Astro.props;
 ---
 
-<Layout title={title}>
+<Layout title={title} page="program">
 	<main>
 		<Nav logo="/images/logo-li-blanco.svg" hreflogo="/" />
 		<TopBanner portada={portada} portada_alt={portadaAlt} />
 		<section class="main-section">
 			<div class="content">
-				<div class="title">
-					<h1 style={`background-color: ${color}; font-weight: 500`}>
+				<div class="title" data-motion-reveal>
+					<h1 style={`background-color: ${color}; font-weight: 500`} data-motion-reveal-item>
 						{title}
 					</h1>
-					<p>{resumen}</p>
+					<p data-motion-reveal-item>{resumen}</p>
 				</div>
-				<div id="modelo-educativo">
-					<h1>Modelo <span style={`color: ${color}; font-weight: 650;`}>Educativo</span></h1>
+				<div id="modelo-educativo" data-motion-reveal>
+					<h1 data-motion-reveal-item>Modelo <span style={`color: ${color}; font-weight: 650;`}>Educativo</span></h1>
 					<p>
 						El modelo educativo se ofrece como una opción que busca satisfacer la demanda educativa de un importante sector de la sociedad, integrado por personas a quienes se les dificulta llevar un plan escolarizado presencial, mediante un plan de estudios abierto y a distancia.
 						Nuestro modelo educativo se sustenta en principios vigentes y probados de educación a distancia que privilegian el auto aprendizaje mediante el uso de la tecnología, con un enfoque formativo basado en competencias y ligado al desarrollo de habilidades y capacidades en áreas específicas del conocimiento.

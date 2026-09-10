@@ -1,6 +1,6 @@
 # Sistema de diseño — Licenciaturas Interactivas
 
-> Contrato visual para personas y agentes que modifiquen el sitio. Actualizado: 2026-09-07.
+> Contrato visual para personas y agentes que modifiquen el sitio. Actualizado: 2026-09-09.
 
 ## Propósito y fuente de verdad
 
@@ -87,6 +87,8 @@ La interfaz usa una pauta editorial: la reacción de controles es breve y las ex
 | `--ease-standard` | `cubic-bezier(.2, .7, .2, 1)` | Curva común de entrada y salida. |
 
 Los carruseles hacen un fundido de `800ms` y permanecen `5.5s` por imagen. Deben pausarse fuera del viewport, con la pestaña oculta, al navegar y cuando se solicite reducir movimiento.
+
+Las páginas de Inicio, Nosotros, Contacto, Agradecimiento y las fichas académicas comparten un patrón de entrada blur/fade: el contenido aparece una sola vez con un desplazamiento vertical corto y las imágenes recuperan suavemente escala y saturación. Las animaciones ligadas al viewport se coordinan desde un único controlador GSAP, se limpian entre rutas y no se aplican a Preguntas frecuentes, navegación, footer ni contenido cerrado de acordeones.
 
 No crear una nueva escala de espacios o radios para una modificación aislada. Si un valor se repite en más de un componente, promoverlo a token global con un nombre semántico.
 
